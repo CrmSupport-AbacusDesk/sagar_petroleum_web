@@ -1,0 +1,262 @@
+
+
+<div class="main-container pb0">
+    <div class="loader" *ngIf = "loading_list">
+        <div class="loding-logo">
+            <mat-spinner></mat-spinner>
+        </div>
+    </div>
+    <div class="fixed">
+        <div class="tab-header">
+            <div class="tabs-list gift-tab-list">
+                <h1>Distributors</h1>
+                <!-- <ul>
+                    <li (click)="filter = {};filter.status = 'All'; getDistributorList('')" [ngClass]="{'active': filter.status == 'All'}" >
+                        <a >
+                            <p>All</p>
+                            <span>{{ distributor_all }}</span>
+                        </a>
+                    </li>
+                    <li (click)="filter = {};filter.status = 'Pending'; getDistributorList('')" [ngClass]="{'active': filter.status == 'Pending'}">
+                        <a>
+                            <p>PENDING</p>
+                            <span class="request-bg">{{ distributor_pending }}</span>
+                        </a>
+                    </li>
+                    <li (click)="filter = {};filter.status = 'Verified'; getDistributorList('')" [ngClass]="{'active': filter.status == 'Verified'}">
+                        <a>
+                            <p >VERIFIED</p>
+                            <span class="approved-bg">{{ distributor_verified }}</span>
+                        </a>
+                    </li>
+                    <li (click)="filter = {};filter.status = 'Reject'; getDistributorList('')" [ngClass]="{'active': filter.status == 'Reject'}">
+                        <a>
+                            <p >REJECT</p>
+                            <span class="reject-bg">{{ distributor_reject }}</span>
+                        </a>
+                    </li>
+                    
+                    <li (click)="filter = {};filter.status = 'Suspect'; getDistributorList('')" [ngClass]="{'active': filter.status == 'Suspect'}">
+                        <a>
+                            <p >SUSPECT</p>
+                            <span class="suspect-bg">{{ distributor_suspect }}</span>
+                        </a>
+                    </li>
+                </ul> -->
+                
+                <!-- <div class="input-field" *ngIf="(filter.status == '' && distributor_all ) || (filter.status == 'Pending' && distributor_pending ) || (filter.status == 'Verified' && distributor_verified ) || (filter.status == 'Reject' && distributor_reject ) || (filter.status == 'Suspect' && distributor_suspect )  ">
+                    <input type="text" placeholder="Search" [(ngModel)]="filter.search"  (keyup.enter)="current_page = 1;getDistributorList()">
+                    <i class="material-icons">
+                        search
+                    </i>
+                </div>
+                <div class="master-btn pl15">
+                    <button  mat-raised-button color="primary" (click)="openDatepicker()">Date Filter</button>
+                </div> -->
+            </div>
+            
+            <div class="refresh-btn">
+                <a mat-button matTooltip="Refresh" matTooltipPosition="below" (click)="getDistributorList('refresh');set_filter({})"><i class="material-icons">sync</i></a>
+            </div>
+            
+            <div class="top-pagination">
+                
+                <!-- <div class="master-btn pr15">
+                    <button (click)="downloadSamplefile()" mat-raised-button color="accent" matTooltip="Download Bulk Update Sample File"
+                matTooltipPosition="above"
+                matTooltipClass="tooltip">
+                    <i class="material-icons ">cloud_download</i>
+                    Download Sample File
+                </button>
+
+                </div>  -->
+                <div class="master-btn pr15">
+                    <button (click)="bulkUpload()" mat-raised-button color="accent" matTooltip="Upload Distributors"
+                        matTooltipPosition="above"
+                        matTooltipClass="tooltip">
+                            Upload Distributors
+                    </button>
+                </div>               
+                <div class="master-btn pr15">
+                    <button mat-button routerLink="/distributor-add"  routerLinkActive="active" >
+                        ADD Distributor
+                    </button>
+                </div>                
+                <ul>
+                    <li><p>Pages {{ current_page }} of {{ last_page }}</p></li>
+                    <li><button mat-button  matTooltip="First Page" class="fisrt-btn" (click) = 'current1()'>First</button></li>
+                    <li><button mat-button class="left-btn" (click) = 'redirect_previous()'><i class="material-icons">keyboard_arrow_left</i></button></li>
+                    <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page"  (keyup.enter)="getDistributorList('')"></li>
+                    <li><button mat-button class="right-btn" (click) = 'redirect_next()'><i class="material-icons">keyboard_arrow_right</i></button></li>
+                    <li><button mat-button  matTooltip="Last Page" class="last-btn" (click) = 'last1()'>Last</button></li>
+                </ul>
+                <div class="master-btn ml20" *ngIf="assign_arr.length > 0 || select_all">
+                    <button style="background: #6daf24;;" mat-button (click)="opensendnitification(3)">Send Notification</button>
+                </div>
+                <!-- <div class="master-btn m120" *ngIf="assign_arr.length >0 || select_all">
+                    <button style="background: #5b5f56;" mat-button (click)="convertType()">Convert into Dealer</button>
+                </div> -->
+            </div>
+        </div>
+        
+        <div class="css-table hr-scroll-table">
+            <div class="sticky-header">
+                <div class="header">
+                    <table>
+                        <tr>
+                            <!-- <td class="w30 text-center"><mat-checkbox name="select_all" [(ngModel)]="select_all" (change)="select_all_data()"></mat-checkbox></td> -->
+                            <th class="w30">&nbsp;</th>
+                            <th class="w100">Date</th>
+                            <th class="w220">Company Name</th>
+                            <th class="w160">Contact Person</th>
+                            <th class="w100">Mobile</th>
+                            <th class="w140">GST Number</th>
+                            <th class="w220">Email ID</th>
+                            <th class="w160">Sales Person</th>
+                            <th class="w100 text-center">Number Of Dealer</th>
+                            <th class="w60">Zone</th>
+                            <th class="w140">State</th>
+                            <th class="w140">District</th>
+                            <th class="w140">City</th>
+                            <th class="w70">Pincode</th>
+                            <th class="w220">Shipping Address 1</th>
+                            <th class="w220">Shipping Address 2</th>
+                            <th class="w70">Action</th>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="header border-bott">
+                    <table>
+                        <tr>
+                            <!-- <th class="w30">&nbsp;</th> -->
+                            <th class="w30">&nbsp;</th>
+                            <th class="w100"></th>                            
+                            <th class="w220">
+                                <div class="search-form">
+                                    <input type="text" placeholder="Search..." [(ngModel)]="filter.distributor_name"  (keyup.enter)="current_page = 1;getDistributorList('')">
+                                    <i class="material-icons">search</i>
+                                </div>
+                            </th>
+                            <th class="w160">
+                                <div class="search-form">
+                                    <input type="text" placeholder="Search..." [(ngModel)]="filter.contact_person"  (keyup.enter)="current_page = 1;getDistributorList('')">
+                                    <i class="material-icons">search</i>
+                                </div>
+                            </th>
+                            <th class="w100">
+                                <div class="search-form">
+                                    <input type="number" placeholder="Search..." [(ngModel)]="filter.mobile"  (keyup.enter)="current_page = 1;getDistributorList('')">
+                                    <i class="material-icons">search</i>
+                                </div>
+                            </th>
+                            
+                            <th class="w140"></th>
+                            <th class="w220"></th>
+                            <th class="w160">
+                                <div class="search-form">
+                                    <input type="text" placeholder="Search..." [(ngModel)]="filter.sales_person"  (keyup.enter)="current_page = 1;getDistributorList('')">
+                                    <i class="material-icons">search</i>
+                                </div>
+                            </th>
+                            <th class="w100"></th>
+                            <th class="w60"></th>
+                            <th class="w140">
+                                <div class="search-form">
+                                    <input type="text" placeholder="Search..." [(ngModel)]="filter.state"  (keyup.enter)="current_page = 1;getDistributorList('')">
+                                    <i class="material-icons">search</i>
+                                </div>
+                            </th>
+                            <th class="w140">
+                                <div class="search-form">
+                                    <input type="text" placeholder="Search..." [(ngModel)]="filter.district"  (keyup.enter)="current_page = 1;getDistributorList('')">
+                                    <i class="material-icons">search</i>
+                                </div>
+                            </th>
+                            <th class="w140">
+                             
+                            </th>
+                            <th class="w70"></th>
+                            <th class="w220"></th>
+                            <th class="w220"></th>
+                            <th class="w70"></th>
+                            
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="table-container" *ngIf="distributors.length">
+                <div class="table-body">
+                    <table>
+                        <tr *ngFor="let val of distributors; let i = index">
+                            <!-- <td class="w30 text-center" style="border-right: 0px !important;"><mat-checkbox name="checked" [(ngModel)]="val.checked" (change)="select_item($event,i)"></mat-checkbox></td> -->
+                            <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+                            <td class="w100">
+                                <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' ">
+                                    {{val.date_created | date: 'dd MMM yyyy'}}
+                                </ng-container> 
+                            </td>
+                            <td class="w220">
+                                <!-- <a class="blue" routerLink="/distributor-detail/{{val.id}}/{{current_page}}" (click)="set_filter(filter)" routerLinkActive="active"></a> -->
+                                {{val.distributor_name}}
+                                <!-- </a> -->
+                            </td>
+                            <td class="w160">{{val.contact_person | titlecase }}</td>
+                            <td class="w100">{{val.mobile}}</td>
+                            <td class="w140">{{val.shipping_gstin}}</td>
+                            <td class="w220">{{val.email}}</td>
+                            <td class="w160">{{val.sales_person}}</td>
+                            <td class="w100 text-center"><strong>{{val.dealer_count}}</strong></td>
+                            <td class="w60">{{val.zone}}</td>
+                            <td class="w140">{{val.state | titlecase }}</td>
+                            <td class="w140">{{val.district | titlecase }}</td>
+                            <td class="w140">{{val.shipping_city}}</td>
+                            <td class="w70">{{val.shipping_postcode}}</td>
+                            <td class="w220">{{val.shipping_address_1}}</td>
+                            <td class="w220">{{val.shipping_address_2}}</td>
+                            <td class="w70">
+                                <div class=" w70 text-center td-flex ">
+                                    <button class="right" (click)="edit(val.distributor_id)"><i class="material-icons">edit</i></button>
+                                    <button class="cancel"><i class="material-icons" (click)="deleteDistributor(val.distributor_id)">delete_sweep</i></button>
+                                </div>
+                            </td>
+                            
+                            <!-- <td class="w135">
+                                <div class="center">
+                                    <select class="{{val.status}}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.status" (change)="distributorStatus(i) ">
+                                        <option class="Verified" value="Verified">Verified</option>
+                                        <option class="Reject" value="Reject">Reject</option>
+                                        <option class="Pending" value="Pending">Pending</option>
+                                        <option class="Suspect" value="Suspect">Suspect</option>
+                                    </select> 
+                                </div>
+                            </td> -->
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>   
+    
+    
+    
+    <div class="container-outer">
+        <!-- <div class="date-not" *ngIf="!loading_list && !distributors.length && ( (filter.status == 'All' && distributor_all ) || (filter.status == 'Pending' && distributor_pending ) || (filter.status == 'Verified' && distributor_verified ) || (filter.status == 'Reject' && distributor_reject ) || (filter.status == 'Suspect' && distributor_suspect )   )">
+            <div class="no-img">
+                <img src="assets/result-not-found.png"> 
+            </div>
+        </div> -->
+        <div class="date-not"  *ngIf="!loading_list && ( (filter.status == 'All' && !distributor_all ) || (filter.status == 'Pending' && !distributor_pending ) || (filter.status == 'Verified' && !distributor_verified ) || (filter.status == 'Reject' && !distributor_reject ) || (filter.status == 'Suspect' && !distributor_suspect )  ) ">
+            <div class="no-img">
+                <img src="assets/not-available.jpg"> 
+            </div>
+        </div>
+        <div class="excel-btn" (click)="exportDistributor()" *ngIf="distributors.length">
+            <div class="image-area">
+                <a>
+                    <img src="assets/excel.svg">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

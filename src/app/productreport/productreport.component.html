@@ -1,0 +1,160 @@
+<div class="loader" *ngIf="loading_list">
+  <div class="loding-logo">
+      <mat-spinner></mat-spinner>
+  </div>
+</div>
+<div class="main-container ">
+  <div class="fixed">
+    <div class="middle-container">
+        <div class="tabs-list">
+            <h1>Product Wise Reports</h1>
+        </div>
+    </div>
+</div>
+<div class="container-outer tab-container pb15">
+    <div class="master-tab">
+      <ul>
+        <!-- <li routerLink="/productcategory-list" routerLinkActive="active"><a>Product Category</a></li> -->
+        <li routerLink="/reports"  routerLinkActive="active" (click)="toggleTab('zone')"><a>Zone wise</a></li>
+        <li routerLink="/product-wise" routerLinkActive="active"  (click)="toggleTab('product')"><a>Product wise</a></li>
+      </ul>
+    </div>
+    <form name="coupon" (ngSubmit)="v.form.valid && saveCouponfrom(v)" #v="ngForm" novalidate autocomplete="off">
+      <div class="row">
+        <div class="col s12">
+          <div class="sprate-box pb15 mt15">
+            <div class="full-offer">
+              <div class="top-heading">
+                <h2>Top 10 Products Performance zone wise</h2>
+                <p>Indicates required fields ( * )</p>
+              </div>
+            </div>
+            <div class="option-field">
+              <div class="row ">
+                <div class="col s3">
+                  <div class="control-field">
+                    <mat-form-field class="cs-input">
+                      <input placeholder="Date From" [(ngModel)]="filter.date_from" (click)="openDatePicker(picker_from)"  name="date_from" matInput  [matDatepicker]="picker_from" required readonly>
+                      <mat-datepicker-toggle matSuffix [for]="picker_from"></mat-datepicker-toggle>
+                      <mat-datepicker #picker_from></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col s3">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <input placeholder="Date To"  [min]="filter.date_from" [max]="today" [(ngModel)]="filter.date_to"  (click)="openDatePicker(picker_to)" name="start_date" matInput  [matDatepicker]="picker_to" required readonly>
+                    <mat-datepicker-toggle matSuffix [for]="picker_to"></mat-datepicker-toggle>
+                    <mat-datepicker #picker_to></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col s3">
+              <div class="control-field">
+                <mat-form-field class=" cs-input cs-multi-select">
+                  <mat-select placeholder="Select User Type" name="user_type" [(ngModel)]="filter.user_type" #user_type="ngModel" (selectionChange) = "getType($event.value)"
+                  required>
+                  <!-- <mat-option value="1">Mechanic </mat-option> -->
+                  <mat-option value="2">Sales Person</mat-option>
+                  <mat-option value="3">DSR's</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+              <div class="col s3">
+                <div class="control-field">
+                  <mat-form-field class=" cs-input cs-multi-select">
+                    <mat-select placeholder="Select Zone" (selectionChange)="getdistributor()" name="zone" [(ngModel)]="filter.zone" #product="ngModel" multiple>
+                    <mat-option *ngFor="let pc of zone_list;" value={{pc.zone}}
+                    >{{pc.state +" - "+ pc.zone}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col s3">
+              <div class="control-field">
+                <div>
+                    <mat-form-field class="cs-input cs-multi-select">
+                        <mat-select placeholder="Select Distributor" name="distributor_id"  [(ngModel)]="filter.distributor_id" #distributor_id="ngModel" multiple>
+                            <mat-option *ngFor="let val of distributorData" [value]="val.distributor_id"> {{val.distributor_name}} </mat-option>
+                        </mat-select>
+                    </mat-form-field> 
+                </div>
+            </div>
+          </div>
+            <div class="col s2">
+                  <div class="save mt20" style="text-align:left !important;">
+                    <button mat-button>Generate</button>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+     </div>
+  </form>
+    <div class="row mt10" *ngIf="dealer_product.length > 0">
+          <div *ngIf="mode == '1'">
+              <div class="css-table">
+                  <div class="sticky-header bo-non">
+                    <div class="header">
+                      <table >
+                        <tr>
+                          <th class="w50 border-right text-center">S.No.</th>
+                          <th class="w300">Product Name</th>
+                          <th class="w150">Product Code</th>
+                          <th class="w150">Distributor Name</th>
+                          <th class="w150 text-center">Scanned Count</th>
+                          <th class="w100 text-center">Points</th>
+                          <th class="w100">Zone</th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="header border-bott">
+                      <table>
+                        <tr>
+                          <th class="w50 border-right">&nbsp;</th>
+                          <th class="w300">&nbsp;</th>
+                          <th class="w150">&nbsp;</th>
+                          <th class="w150">&nbsp;</th>
+                          <th class="w150 text-center">&nbsp;</th>
+                          <!-- <th class="w150">&nbsp;</th> -->
+                          <th class="w100 text-center">&nbsp;</th>
+                          <th class="w100">&nbsp;</th>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="css-table"  *ngIf="dealer_product.length">
+                    <div class="table-container">
+                      <div class="table-body">
+                        <table>
+                          <tr class="arject" *ngFor="let val of dealer_product; let i = index">
+                            <td class="w50 text-center">{{ i + 1 }}</td>
+                            <td class="w300">{{val.product_name | titlecase}}</td>
+                            <td class="w150">{{val.product_code | titlecase}}</td>
+                            <td class="w150">{{val.distributor_name | titlecase}}</td>
+                            <td class="w150 text-center">{{val.coupon_count}}</td>
+                            <td class="w100 text-center">{{val.coupon_value}}</td>
+                            <td class="w100">{{val.zone}}</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="date-not"  *ngIf="!loading_list && dealer_product.length <= 0">
+                    <div class="no-img">
+                        <img src="assets/not-available.jpg"> 
+                    </div>
+                </div>
+          </div>
+    </div>
+      <div class="excel-btn" (click)="exportDealer()" *ngIf="dealer_product.length > 0">
+        <div class="image-area">
+            <a>
+                <img src="assets/excel.svg">
+            </a>
+        </div>
+      </div>
+  </div>
+</div>

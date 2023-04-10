@@ -1,0 +1,76 @@
+<div class="gift-box">
+  <div class="gift-head">
+      <p>Change Mechanic Status</p>
+      <div class="close-icon">
+          <button mat-button mat-dialog-close ><i class="material-icons">clear</i></button>
+      </div>
+  </div>
+  
+  <div class="trans pt15">
+      <form name="karigarform" (ngSubmit)="f.form.valid && karigarstatus(f) " #f="ngForm" novalidate autocomplete="off">
+          <div class="form-area">
+              <div class="slect none-bo mr0">
+                  <mat-form-field>
+                      <mat-label>Status</mat-label>
+                      <mat-select class="karigarform.status" placeholder="Status" [(ngModel)] = "karigarform.status" #status="ngModel" name="status" required>
+                          <mat-option value ="Pending" class="Pending">Pending</mat-option>
+                          <mat-option value ="Reject" class="Reject">Reject</mat-option>
+                          <mat-option value ="Approved" class="Approved">Approved</mat-option>
+                          <mat-option value ="Suspect" class="Suspect">Suspect</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+          </div>
+          
+          <div class="option-field" *ngIf="karigarform.status == 'Reject'">
+              <div class="control-field">
+                  <mat-form-field  class="cs-input">
+                      <textarea matInput placeholder="Description" class="h106" name="desc" [(ngModel)] = "karigarform.desc" #desc="ngModel" ></textarea>
+                  </mat-form-field>
+              </div>
+          </div>
+          <div class="option-field" *ngIf="karigarform.status == 'Approved'">
+            <div class="control-field">
+                <mat-form-field class="cs-input">
+                    <mat-label>Select Mechanic Type</mat-label>
+                    <mat-select  [(ngModel)]="karigarform.machanic_type" name="machanic_type" #machanic_type="ngModel" required>
+                        <mat-option value="Head Mechanic">Head Mechanic</mat-option>
+                        <mat-option value="Assistance Mechanic" class="Assistance Mechanic">Assistance Mechanic</mat-option>
+                    </mat-select>
+                </mat-form-field>  
+            </div>
+
+          
+        </div>
+
+        <div class="option-field" *ngIf="karigarform.machanic_type == 'Assistance Mechanic' && karigarform.status == 'Approved'">
+            <!-- <div class="control-field">
+                <mat-form-field  class="cs-input">
+                    <textarea matInput placeholder="Description" class="h106" name="desc" [(ngModel)] = "karigarform.desc" #desc="ngModel" ></textarea>
+                </mat-form-field>
+            </div> -->
+
+
+
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <mat-select placeholder="Select Assistance Mechanic" name="sales_employee_id"
+                      [(ngModel)]="karigarform.sales_employee_id" #sales_employee_id="ngModel">
+                      <mat-option *ngFor="let val of sales_list" [value]="val.id"> {{val.full_name | titlecase}} {{val.mobile_no}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+             
+
+
+
+        </div>
+       
+          
+          <div class="save mt15" [ngClass]="{loading: savingData}">
+              <button mat-button class="mb0"  [disabled]="savingData" >SAVE</button>
+          </div>
+      </form>
+  </div>
+</div>

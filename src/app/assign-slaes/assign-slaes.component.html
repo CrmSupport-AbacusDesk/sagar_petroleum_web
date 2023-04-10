@@ -1,0 +1,28 @@
+<div class="gift-box">
+  <div class="gift-head">
+    <p>Assign Sales User</p>
+    <div class="close-icon">
+      <button mat-button [mat-dialog-close]="false" ><i class="material-icons">clear</i></button>
+    </div>
+  </div>
+  
+  <div class="trans">
+    <form name="sales_data" (ngSubmit)="f.form.valid" #f="ngForm" novalidate autocomplete="off">
+      <div class="form-area pt20">
+        <div class="slect none-bo">
+          <!-- <mat-form-field> -->
+            <!-- <mat-label>Status</mat-label> -->
+            <mat-form-field class="cs-input cs-multi-select">
+              <mat-select placeholder="Select Sales User" name="sales_id"  [(ngModel)]="sales_data.dsr_code" #sales_id="ngModel" required>
+                  <mat-option *ngFor="let val of sales_users" [value]="val.dsr_code" >  {{val.mobile_no}} - {{val.first_name | titlecase}} </mat-option>
+              </mat-select>
+            </mat-form-field> 
+        </div>
+      </div>
+      <div class="save mt10">
+        <button mat-button class="mb0"  (click)="assign_sales_user(f)" >SAVE</button>
+        <!-- <button *ngIf="mode !== 'karigar_sales_assign'" mat-button class="mb0"  (click)="assign_sales_user(f)" >SAVE</button> -->
+      </div>
+    </form>
+  </div>
+</div>

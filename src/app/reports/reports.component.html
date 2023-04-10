@@ -1,0 +1,249 @@
+<div class="loader" *ngIf="loading_list">
+  <div class="loding-logo">
+      <mat-spinner></mat-spinner>
+  </div>
+</div>
+<div class="main-container ">
+  <div class="fixed">
+    <div class="middle-container">
+        <div class="tabs-list">
+            <h1>Reports</h1>
+        </div>
+    </div>
+</div>
+<div class="container-outer tab-container pb15">
+    <div class="master-tab">
+      <ul>
+        <li routerLink="/reports" routerLinkActive="active" (click)="toggleTab('zone')"><a>Zone wise</a></li>
+        <li routerLink="/product-wise" routerLinkActive="active" (click)="toggleTab('product')"><a>Product wise</a></li>
+      </ul>
+    </div>
+    <form name="coupon" (ngSubmit)="v.form.valid && saveCouponfrom(v)" #v="ngForm" novalidate autocomplete="off">
+      <div class="row">
+        <div class="col s12">
+          <div class="sprate-box pb15 mt15">
+            <div class="full-offer">
+              <div class="top-heading">
+                <h2>Zone Wise Reports</h2>
+                <p>Indicates required fields ( * )</p>
+              </div>
+            </div>
+            <div class="option-field">
+              <div class="row ">
+                <div class="col s3">
+                  <div class="control-field">
+                    <mat-form-field class="cs-input">
+                      <input placeholder="Date From" [(ngModel)]="filter.date_from" (click)="openDatePicker(picker_from)"  name="date_from" matInput  [matDatepicker]="picker_from" required readonly>
+                      <mat-datepicker-toggle matSuffix [for]="picker_from"></mat-datepicker-toggle>
+                      <mat-datepicker #picker_from></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col s3">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <input placeholder="Date To"  [min]="filter.date_from" [max]="today" [(ngModel)]="filter.date_to"  (click)="openDatePicker(picker_to)" name="start_date" matInput  [matDatepicker]="picker_to" required readonly>
+                    <mat-datepicker-toggle matSuffix [for]="picker_to"></mat-datepicker-toggle>
+                    <mat-datepicker #picker_to></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+                <div class="col s3">
+                  <div class="control-field">
+                    <mat-form-field class=" cs-input cs-multi-select">
+                      <mat-select placeholder="Select User Type" name="user_type" [(ngModel)]="filter.user_type" #user_type="ngModel" (selectionChange) = "getType($event.value)"
+                      required>
+                      <!-- <mat-option value="1">Mechanic </mat-option> -->
+                      <mat-option value="2">Sales Person</mat-option>
+                      <mat-option value="3">DSR's</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col s3">
+                <div class="control-field">
+                  <mat-form-field class=" cs-input cs-multi-select">
+                    <mat-select placeholder="Select Zone" (selectionChange)="getdistributor()" name="zone" [(ngModel)]="filter.zone" #product="ngModel" multiple>
+                    <mat-option *ngFor="let pc of zone_list;" value={{pc.zone}}
+                    >{{pc.state +" - "+ pc.zone}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row mb0">
+         
+
+          <div class="col s3">
+            <div class="control-field">
+              <div>
+                  <mat-form-field class="cs-input cs-multi-select">
+                      <mat-select placeholder="Select Distributor" name="distributor_id"  [(ngModel)]="filter.distributor_id" #distributor_id="ngModel" multiple>
+                          <mat-option *ngFor="let val of distributorData" [value]="val.distributor_id"> {{val.distributor_name}} </mat-option>
+                      </mat-select>
+                  </mat-form-field> 
+              </div>
+          </div>
+        </div>
+            <div class="col s3">
+              <div class="save" >
+                <button mat-button>Generate</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+     </div>
+  </form>
+    <div class="row mt10" *ngIf="reports.length > 0">
+      <div class="row" >
+          <div class="used-code">
+              <div class="tab-header">
+                  <div class="tab-header no-sticky gift-tab-list ">
+                      <div class="tabs-list gift-tab-list ">
+                          <ul>
+                              <li (click)="mode='1'" [ngClass]="{'active': mode == '1'}" >
+                                  <a>
+                                      <p>Zone Reports</p>
+                                      <span>{{total_count}}</span>
+
+                                  </a>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>					
+                 
+                  <div class="dobale">
+
+                    <div class="refresh-btn">
+                      <a mat-button matTooltip="Refresh" matTooltipPosition="below" (click)="saveCouponfrom('refresh');set_filter({})"><i class="material-icons">sync</i></a>
+                    </div>
+
+                    <div class="top-pagination" *ngIf="mode == '1' || mode == '3'">
+                          <ul>
+                              <li><p >Pages {{ current_page }} of {{ last_page }}</p></li>
+                              <li><button mat-button class="left-btn" (click) = 'redirect_previous2()'><i class="material-icons">keyboard_arrow_left</i></button></li>
+                              <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page"  (keyup.enter)="saveCouponfrom('')"></li>
+                              <li><button mat-button class="right-btn" (click) = 'redirect_next2()'><i class="material-icons">keyboard_arrow_right</i></button></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="sprate-box no-box">
+              <div class="css-table">
+                  <div class="sticky-header bo-non">
+                    <div class="header">
+                      <table >
+                        <tr>
+                          <th class="w50 border-right text-center">S.No.</th>
+                          <th class="w150">Dealer Name</th>
+                          <th class="w90">Dealer Mobile</th>
+                          <th class="w150">Distributor</th>
+                          <th class="w100">DSR's</th>
+                          <!-- <th class="w150">Product Name</th> -->
+                          <th class="w80 text-center">Points</th>
+                          <th class="w80 text-center">Scanned Count</th>
+                          <th class="w150 text-center">Sales Person</th>
+                          <th class="w80 text-center">Zone</th>
+                          <th class="w120">State</th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="header border-bott">
+                      <table>
+                        <tr>
+                          <th class="w50 border-right">&nbsp;</th>
+                          <th class="w150"> 
+                              <!-- <div class="search-form">
+                                <input type="text" placeholder="Search" [(ngModel)]="filter.company_name"  (keyup.enter)="current_page = 1;saveCouponfrom()">
+                                <i class="material-icons">search</i>
+                            </div> -->
+                         </th>
+
+                      <th class="w90"> 
+                          <!-- <div class="search-form">
+                            <input type="text" placeholder="Search" [(ngModel)]="filter.mobile_no"  (keyup.enter)="current_page = 1;saveCouponfrom()">
+                            <i class="material-icons">search</i>
+                        </div> -->
+                      </th>
+                      <th class="w150">
+                          <!-- <div class="search-form">
+                            <input type="text" placeholder="Search" [(ngModel)]="filter.company_name"  (keyup.enter)="current_page = 1;saveCouponfrom()">
+                            <i class="material-icons">search</i>
+                        </div> -->
+                      </th>
+
+                          <!-- <th class="w150">&nbsp;</th> -->
+                          <th class="w100">
+                            <!-- <div class="search-form">
+                                  <input type="text" placeholder="Search" [(ngModel)]="filter.dsr_name"  (keyup.enter)="current_page = 1;saveCouponfrom()">
+                                  <i class="material-icons">search</i>
+                            </div> -->
+                          </th>
+                          
+                          <!-- <th class="w150"></th> -->
+                          <th class="w80 text-center">&nbsp;</th>
+                          <th class="w80 text-center">&nbsp;</th>
+
+                          <th class="w150 text-center">
+                            <!-- <div class="search-form">
+                              <input type="text" placeholder="Search" [(ngModel)]="filter.sales_person"  (keyup.enter)="current_page = 1;saveCouponfrom()">
+                              <i class="material-icons">search</i>
+                            </div> -->
+                          </th>
+                          <th class="w80 text-center">&nbsp;</th>
+                          <th class="w120">&nbsp;</th>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="css-table"  *ngIf="reports.length">
+                    <div class="table-container">
+                      <div class="table-body">
+                        <table>
+                          <tr class="arject" *ngFor="let val of reports; let i = index">
+                            <td class="w50 text-center">{{ i + 1 }}</td>
+                            <td class="w150">{{val.company_name ? (val.company_name | titlecase) : 'N/A'}}</td>
+                            <td class="w90" *ngIf="userType == 2">{{ val.mobile_no ? val.mobile_no : 'N/A'}}</td>
+                            <td class="w90" *ngIf="userType == 3">{{ val.dealer_mobile ? val.dealer_mobile : 'N/A'}}</td>
+                            <td class="w150">{{val.distributor_name ? (val.distributor_name | titlecase) : 'N/A'}}</td>
+                            <td class="w100">
+                                  <ng-container *ngIf="userType == 2">
+                                    {{val.dsr_name | titlecase}} - <b>{{val.assign_dsr_code}}</b>
+                                  </ng-container>
+                                  <ng-container *ngIf="userType == 3">
+                                    {{val.dsr_name | titlecase}} - <b>{{val.dsr_code}}</b>
+                                  </ng-container>
+                            </td>
+                            <!-- <td class="w100">{{ userType != 3 ? (val.assign_dsr_code | titlecase) : (val.dsr_name - val.dsr_code | titlecase) }}</td> -->
+                            <!-- <td class="w150">{{val.product_name}}</td> -->
+                            <td class="w80 text-center" *ngIf="userType == 1">{{  val.coupon_amount}}</td>
+                            <td class="w80 text-center" *ngIf="userType == 2">{{  val.coupon_amount}}</td>
+                            <td class="w80 text-center" *ngIf="userType == 3">{{  val.coupon_amount}}</td>
+                            <td class="w80 text-center">{{val.coupon_count}}</td>
+
+                            <td class="w150 text-center">{{val.sales_person ? (val.sales_person | titlecase) : 'N/A'}}</td>
+                            <td class="w80 text-center">{{val.zone}}</td>
+                            <td class="w120">{{val.state}}</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              
+              
+          </div>
+      </div>
+      <div class="excel-btn" (click)="exportDealer()" *ngIf="reports.length > 0">
+        <div class="image-area">
+            <a>
+                <img src="assets/excel.svg">
+            </a>
+        </div>
+    </div>
+  </div>
+</div>

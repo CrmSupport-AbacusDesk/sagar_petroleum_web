@@ -1,0 +1,31 @@
+.cs-model-heading
+{
+      background: #367642;
+      color: #fff;
+      font-size: 14px;
+      padding: 10px;
+      // margin: -24px -24px 0px -24px;
+}
+
+mat-dialog-content
+{
+      margin: 0px;
+      padding: 0px;
+}
+
+.date-filter
+{
+      padding: 0px;
+      
+      ul
+      {
+            display: flex;
+            justify-content: space-around;
+      }
+}
+
+mat-dialog-actions
+{
+      margin-bottom: 0px;
+      padding: 16px;
+}
