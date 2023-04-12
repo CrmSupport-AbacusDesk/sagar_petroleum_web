@@ -323,6 +323,7 @@ export class KarigarListComponent implements OnInit {
                 'id' : id,
                 'status' : status,
                 'machanic_type' : machanic_type,
+         
                 'district' : district,
                 // 'sales_employee_id' : sales_employee_id,
                 // 'machanic_type' : machanic_type,

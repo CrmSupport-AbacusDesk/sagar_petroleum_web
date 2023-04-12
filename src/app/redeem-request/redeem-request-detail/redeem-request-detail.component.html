@@ -1,10 +1,10 @@
-<div class="loader" *ngIf = "loading_list">
+<div class="loader" *ngIf="loading_list">
   <div class="loding-logo">
     <mat-spinner></mat-spinner>
   </div>
 </div>
 
-<div class="main-container" >
+<div class="main-container">
   <div class="offer-container">
     <div class="row">
       <div class="col s12">
@@ -15,12 +15,12 @@
               <h2 *ngIf="getData.user_type == 2">DEALER DETAIL</h2>
               <!-- <a class="blue"  *ngIf="getData.receive_status == ''  &&  getData.gift_status != 'Reject'" (click)="changeStatus(getData.id)">Status</a> -->
             </div>
-            
+
             <div class="detail-info">
               <div class="img-box">
                 <img [src]="getData.profile" (click)="openDialog( getData.karigar_id,'test5')">
               </div>
-              
+
               <div class="basic-details">
                 <div class="profile-info">
                   <ul>
@@ -36,7 +36,7 @@
                       </figure>
                     </li>
                     <li>
-                      
+
                       <figure>
                         <div class="left-img">
                           <img src="assets/contact.svg">
@@ -46,9 +46,9 @@
                           <span>{{getData.mobile_no}}</span>
                         </div>
                       </figure>
-                      
+
                     </li>
-                    
+
                     <li>
                       <figure>
                         <div class="left-img">
@@ -59,9 +59,9 @@
                           <span>{{getData.dob | date:'dd MMM yyyy'}}</span>
                         </div>
                       </figure>
-                      
+
                     </li>
-                    
+
                   </ul>
                   <ul>
                     <li>
@@ -71,14 +71,18 @@
                         </div>
                         <div class="right-cont">
                           <p>Address</p>
-                          <span>{{getData.address}} {{getData.statte}} {{getData.district}} {{getData.city}} {{getData.pincode}}</span>
-                          
+                          <span>{{getData.address}} {{getData.statte}} {{getData.district}} {{getData.city}}
+                            {{getData.pincode}}</span>
+
                         </div>
                       </figure>
-                      
+
                     </li>
                   </ul>
                 </div>
+
+
+
                 <div class="traking">
                   <div class="traking-header">
                     <ul>
@@ -103,14 +107,19 @@
                         </div>
                       </li>
                       
-                      <li [ngClass]="{'check': ( getData.receive_status == 'Transfer' || getData.receive_status == 'Received' ) }">
+                      <li [ngClass]="{'check': ( getData.receive_status == 'Transfer' || getData.receive_status == 'Shipped' || getData.receive_status == 'Received' ) }">
                         <div class="traking-list">
                           <span>
                             <span>3</span>
                           </span>
                         </div>
                         
-                        <div class="traking-con">
+                        <div class="traking-con" *ngIf="getData.payment_type != 'Gift'">
+                          <p>Points Transfer</p>
+                          <p *ngIf="getData.shipped_date != '0000-00-00'">{{getData.shipped_date | date:'d MMM y'}}</p>
+                        </div>
+                        
+                        <div class="traking-con" *ngIf="getData.payment_type == 'Gift'">
                           <p>Shipped</p>
                           <p *ngIf="getData.shipped_date != '0000-00-00'">{{getData.shipped_date | date:'d MMM y'}}</p>
                         </div>
@@ -128,22 +137,86 @@
                     </ul>
                   </div>
                 </div>
+
+
+
+
+
+
+
+                <!-- <div class="traking">
+                  <div class="traking-header">
+                    <ul>
+
+                      <li [ngClass]="{'check': getData.date_created != '' }">
+                        <span>1</span>
+                        <div class="traking-con">
+                          <p>Redeem Request</p>
+                          <p>{{getData.date_created | date:'d MMM y'}}</p>
+                        </div>
+                      </li>
+
+                      <li
+                        [ngClass]="{'check': (getData.gift_status=='Pending' || getData.gift_status=='Approved'  ) , 'reject' : getData.gift_status=='Reject' }">
+
+                        <span>2</span>
+
+                        <div class="traking-con">
+                          <p>{{getData.gift_status}}</p>
+                          <p
+                            *ngIf="getData.gift_status == 'Pending' && getData.gift_status_date_pending != '0000-00-00' ">
+                            {{getData.gift_status_date_pending | date:'d MMM y'}}</p>
+                          <p
+                            *ngIf="getData.gift_status == 'Approved' && getData.gift_status_date_approved != '0000-00-00'">
+                            {{getData.gift_status_date_approved | date:'d MMM y'}}</p>
+                          <p *ngIf="getData.gift_status == 'Reject' && getData.gift_status_date_reject != '0000-00-00'">
+                            {{getData.gift_status_date_reject | date:'d MMM y'}}</p>
+                        </div>
+                      </li>
+
+                      <li
+                        [ngClass]="{'check': ( getData.receive_status == 'Transfer' || getData.receive_status == 'Received' ) }">
+                        <div class="traking-list">
+                          <span>
+                            <span>3</span>
+                          </span>
+                        </div>
+
+                        <div class="traking-con">
+                          <p>Shipped</p>
+                          <p *ngIf="getData.shipped_date != '0000-00-00'">{{getData.shipped_date | date:'d MMM y'}}</p>
+                        </div>
+                      </li>
+
+                      <li [ngClass]="{'check': getData.receive_status == 'Received' }">
+                        <div class="traking-list">
+                          <span>4</span>
+                        </div>
+                        <div class="traking-con">
+                          <p>Received</p>
+                          <p *ngIf="getData.received_date != '0000-00-00'">{{getData.received_date | date:'d MMM y'}}
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div> -->
               </div>
             </div>
-          </div> 
+          </div>
         </div>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col s6">
-        <div class="sprate-box gift-offer mb15" *ngIf="getData.user_type=='1'">
+        <!-- <div class="sprate-box gift-offer mb15" *ngIf="getData.user_type=='1'">
           <div class="full-offer">
             <div class="top-heading">
               <h2> RETAILER DETAIL</h2>
             </div>
             <div class="detail-info pl0 pr0">
-              
+
               <div class="basic-details">
                 <div class="profile-info">
                   <ul>
@@ -151,10 +224,11 @@
                       <p>Counter Name</p>
                       <span>{{!getData.parent_counter_name?'N/A':getData.parent_counter_name | titlecase }}</span>
                     </li>
-                    
+
                     <li>
                       <p>Contact Person</p>
-                      <span>{{!getData.parent_counter_contact_person? 'N/A' : getData.parent_counter_contact_person| titlecase}}</span>
+                      <span>{{!getData.parent_counter_contact_person? 'N/A' : getData.parent_counter_contact_person|
+                        titlecase}}</span>
                     </li>
                     <li>
                       <p>Mobile No.</p>
@@ -165,8 +239,8 @@
               </div>
             </div>
           </div>
-        </div>
-        
+        </div> -->
+
         <div class="sprate-box gift-offer ">
           <div class="full-offer">
             <div class="top-heading">
@@ -183,7 +257,7 @@
                       <p>Document Type</p>
                       <span>{{!getData.document_type ? 'N/A' : getData.document_type}}</span>
                     </li>
-                    
+
                     <li>
                       <p>Document Number</p>
                       <span>{{!getData.document_no ? 'N/A' : getData.document_no}}</span>
@@ -201,7 +275,7 @@
               <h2>REDEEM REQUEST DETAIL</h2>
             </div>
             <div class="detail-info pl0 pr0">
-              
+
               <div class="basic-details">
                 <div class="profile-info">
                   <ul>
@@ -215,7 +289,8 @@
                     </li>
                     <li>
                       <p>Status</p>
-                      <span class="{{getData.gift_status}}">{{!getData.gift_status ? 'N/A' : getData.gift_status}}</span>
+                      <span class="{{getData.gift_status}}">{{!getData.gift_status ? 'N/A' :
+                        getData.gift_status}}</span>
                     </li>
                   </ul>
                   <ul>
@@ -225,11 +300,11 @@
                     </li>
                   </ul>
                   <ul>
-                    <li  *ngIf="getData.receive_remark && getData.receive_status=='Received'">
+                    <li *ngIf="getData.receive_remark && getData.receive_status=='Received'">
                       <p>Receiving Date</p>
                       <span>{{getData.received_date | date : 'dd MMM yyyy'}}</span>
                     </li>
-                    <li  *ngIf="getData.receive_remark && getData.receive_status=='Received'">
+                    <li *ngIf="getData.receive_remark && getData.receive_status=='Received'">
                       <p>Receiving Remark</p>
                       <span>{{getData.receive_remark}}</span>
                     </li>
@@ -245,11 +320,12 @@
             </div>
           </div>
         </div>
-     
+
       </div>
       <div class="col s6">
         <div class="sprate-box gift-offer ">
-          <div class="full-offer" >
+          <!-- && getData.offer_banner == '' -->
+          <div class="full-offer" *ngIf="getData.redeem_type == 'gift' ">
             <div class="top-heading">
               <h2>OffER DETAIL</h2>
             </div>
@@ -261,7 +337,7 @@
                       <div class="checkbox-outers">
                         <img [src]="getData.offer_banner">
                       </div>
-                    </div>  
+                    </div>
                   </div>
                 </div>
                 <div class="col s9 padding0">
@@ -270,7 +346,7 @@
                       <div class="col s6">
                         <div class="detail-field">
                           <p>Title</p>
-                          <span>{{getData.offer_title}}</span>
+                          <span>{{getData.title}}</span>
                         </div>
                       </div>
                       <div class="col s6">
@@ -279,24 +355,24 @@
                           <span>{{getData.offer_code}}</span>
                         </div>
                       </div>
-                      
+
                     </div>
-                    
+
                     <div class="row mb0 ">
                       <div class="col s4">
                         <div class="detail-field">
                           <p>Start Date</p>
-                          <span>{{getData.start_date  | date:'dd MMM yyyy' }}</span>
+                          <span>{{getData.start_date | date:'dd MMM yyyy' }}</span>
                         </div>
                       </div>
-                      
+
                       <div class="col s4 padding0">
                         <div class="detail-field">
                           <p>End Date</p>
-                          <span>{{getData.end_date  | date:'dd MMM yyyy' }}</span>
+                          <span>{{getData.end_date | date:'dd MMM yyyy' }}</span>
                         </div>
                       </div>
-                      
+
                       <div class="col s4 padding0">
                         <div class="detail-field">
                           <p>Status</p>
@@ -320,7 +396,7 @@
         </div>
 
         <div class="sprate-box gift-offer mt15">
-          <div class="full-offer">
+          <div class="full-offer" *ngIf="getData.redeem_type == 'gift'">
             <div class="top-heading">
               <h2>GIFT DETAIL</h2>
             </div>
@@ -332,7 +408,7 @@
                       <div class="checkbox-outers">
                         <img [src]="getData.gift_image" (click)="openDialogImage( getData.offer_gift_id,'test15')">
                       </div>
-                    </div>  
+                    </div>
                   </div>
                 </div>
                 <div class="col s9 padding0">
@@ -345,22 +421,22 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <div class="row mb0 ">
                       <div class="col s4">
                         <div class="detail-field">
                           <p> Date</p>
-                          <span>{{getData.gift_date  | date:'dd MMM yyyy'}}</span>
+                          <span>{{getData.gift_date | date:'dd MMM yyyy'}}</span>
                         </div>
                       </div>
-                      
+
                       <div class="col s4 padding0">
                         <div class="detail-field">
                           <p>Created By</p>
-                          <span>{{getData.gift_created}}</span>
+                          <span>{{getData.machanic_type}}</span>
                         </div>
                       </div>
-                      
+
                       <div class="col s4 padding0">
                         <div class="detail-field status dark-red">
                           <div class="points">
@@ -376,9 +452,77 @@
             </div>
           </div>
         </div>
+
+
+
+
+
+
+
+
+        <div class="sprate-box gift-offer mt0">
+          <div class="full-offer " *ngIf="getData.redeem_type == 'Cash'">
+            <div class="top-heading " >
+              <h2>BANK DETAIL</h2>
+            </div>
+            <div class="row mb0">
+
+
+              <div class="detail-info pl0 pr0">
+
+                <div class="basic-details">
+                  <div class="profile-info">
+                    <ul>
+                      <li>
+                        <p>Bank Name</p>
+                        <span>{{getData.bank_name}}</span>
+                      </li>
+                      <li>
+                        <p>Account Holder Name</p>
+                        <span>{{getData.account_holder_name}}</span>
+                      </li>
+                      <li>
+                        <p>Account Number</p>
+                        <span>{{getData.account_no}}</span>
+                      </li>
+                      <li>
+                        <p>IFSC Code</p>
+                        <span>{{getData.ifsc_code}}</span>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
     </div>
-  
-  
-</div>
+
+
+  </div>
 </div>

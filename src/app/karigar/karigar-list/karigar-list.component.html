@@ -96,12 +96,13 @@
                             <th class="w135">State</th>
                             <th class="w135">District</th>
                             <th class="w135">Mechanic Type</th>
+                            <th class="w135">Head Mechanic</th>
 
 
                             <!-- <th class="w150">Dealer</th>
                             <th class="w150">Dealer Contact</th> -->
                             <th class="w60 text-center">Wallet</th>
-                            <th class="w70 text-center">Requests</th>
+                            <!-- <th class="w70 text-center">Requests</th> -->
                             <!-- <th class="w100 text-center">DSR's</th>
                             <th class="w100 text-center">Sales User Name</th> -->
                             <th class="w120 text-center">Status</th>
@@ -141,8 +142,31 @@
                             </th>
 
                             <th class="w135">
-                                <div class="search-form">
+                                <!-- <div class="search-form">
                                     <input type="text" placeholder="machanic_type" [(ngModel)]="filter.machanic_type"  (keyup.enter)="current_page = 1;getKarigarList('')">
+                                    <i class="material-icons">search</i>
+                                </div> -->
+
+                                <div class="form-area">
+                                    <div class="slect">
+                                        <mat-form-field>
+                                            <mat-select placeholder="All" [(ngModel)]="filter.machanic_type" name="machanic_type" #machanic_type="ngModel" (selectionChange)="getKarigarList('')">
+                                                <mat-option value="">All</mat-option>
+                                                <mat-option value="Head Mechanic">Head Mechanic</mat-option>
+                                                <mat-option value="Assistant Mechanic">Assistant Mechanic</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+
+
+
+                            </th>
+
+                            <th class="w135">
+                                <div class="search-form">
+                                    <input type="text" placeholder="search" [(ngModel)]="filter.head_machanic_name"  (keyup.enter)="current_page = 1;getKarigarList('')">
                                     <i class="material-icons">search</i>
                                 </div>
                             </th>
@@ -157,7 +181,7 @@
                             <th class="w150"></th> -->
             
                             <th class="w60"></th>
-                            <th class="w70"></th>
+                            <!-- <th class="w70"></th> -->
                             <!-- <th class="w100"></th>
                             <th class="w100"></th> -->
                             <th class="w120"></th>
@@ -197,11 +221,12 @@
                         <td class="w135">{{val.state | titlecase }}</td>
                         <td class="w135">{{val.district | titlecase }}</td>
                         <td class="w135">{{val.machanic_type | titlecase }}</td>
+                        <td class="w135">{{val.head_machanic_name | titlecase }}/{{val.head_machanic_mobile_no}}</td>
 
                         <!-- <td class="w150">{{val.parent_counter_name | titlecase }}</td>
                         <td class="w150">{{val.parent_counter_contact_person | titlecase }} - {{val.parent_counter_mobile}}</td> -->
                         <td class="w60 text-center">{{val.total_wallet_point}}</td>
-                        <td class="w70 text-center"><span class="back-bg">{{val.redeem_request}}</span></td>
+                        <!-- <td class="w70 text-center"><span class="back-bg">{{val.redeem_request}}</span></td> -->
                         <!-- <td class="w100 blue_link">
                             <span (click)="modalOpen(val.id)">Assign DSR's</span>
                         </td>
@@ -215,7 +240,7 @@
                                 
                                 <div class="center">
                                 <select class="{{val.status}}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.status" (click)="changeMechanicStatus(i, val.id,val.status,val.machanic_type,val.district)">
-                                    <option class="Approved" value="Approved">Approved</option>
+                                    <option class="Verified" value="Verified">Verified</option>
                                     <option class="Reject" value="Reject">Reject</option>
                                     <option class="Pending" value="Pending">Pending</option>
                                     <option class="Suspect" value="Suspect">Suspect</option>

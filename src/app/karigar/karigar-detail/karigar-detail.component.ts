@@ -273,6 +273,20 @@ export class KarigarDetailComponent implements OnInit {
             console.log(`Dialog result: ${result}`);
         });
     }
+
+
+    openDialogShop(id ,string,image) {
+        const dialogRef = this.alrt.open(ProductImageModuleComponent,{
+            data: {
+                'id' : id,
+                'mode' : string,
+                'image' : image,
+            }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`);
+        });
+    }
     
     changeStatus(id)
     {

@@ -53,16 +53,17 @@
         </div>
 
 
-        <div class="gift-box product-img " *ngIf=" part_data.mode == 'test8'">  
+        <div class="gift-box product-img " *ngIf=" part_data.mode == 'test67'">  
             <div class="form-area">
                 <img [src]="documentImage.document_image_back">
             </div>
             <button mat-button [mat-dialog-close]="false" ><i class="material-icons">clear</i></button>
         </div>
 
-        <div class="gift-box product-img " *ngIf=" part_data.mode == 'test26'">  
+        <div class="gift-box product-img " *ngIf=" part_data_shop.mode == 'test26'">  
             <div class="form-area">
-                <img [src]="documentImage.image">
+                <!-- <img [src]="uploadUrl +docImg"> -->
+                <img [src]="uploadUrl +documentImageShop.image">
             </div>
             <button mat-button [mat-dialog-close]="false" ><i class="material-icons">clear</i></button>
         </div>

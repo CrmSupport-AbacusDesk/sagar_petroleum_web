@@ -79,6 +79,7 @@
                             <th class="w80">Point</th>
                             <th class="w100">Mobile No.</th>
                             <th class="w100">A/C Status</th>
+                            <th class="w90">Redeem Type</th>
                             <!-- <th class="w130">Sales Executive</th> -->
                             <th class="w130">Gift</th>
                             <th>Offer-valid Upto</th>
@@ -164,7 +165,20 @@
                                     </mat-form-field>
                                 </div>
                             </th> -->
-                            
+                            <th class="w90">
+                                <div class="form-area">
+                                    <div class="slect mr0">
+                                        <mat-form-field>
+                                            <mat-label>All</mat-label>
+                                            <mat-select  [(ngModel)]="filter.redeem_type" name="redeem_type" #redeem_type="ngModel" (selectionChange)="getReedamList('')">
+                                                <mat-option value="">All</mat-option>
+                                                <mat-option value="Gift">Gift</mat-option>
+                                                <mat-option value="Cash">Cash</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </th>
                             <th class="w130">
                                 <div class="search-form">
                                     <input type="text" placeholder="Gift" [(ngModel)]="filter.gift"  (keyup.enter)="current_page = 1;getReedamList('')">
@@ -173,10 +187,10 @@
                             </th>
                             <th>
                                 <div class="date-form">
-                                    <i *ngIf="filter.end_date" class="material-icons" (click)="filter.end_date = '';getReedamList('') ">clear</i>
+                                    <i *ngIf="filter.estimated_date" class="material-icons" (click)="filter.estimated_date = '';getReedamList('') ">clear</i>
                                     
                                     <mat-form-field >
-                                        <input placeholder="Offer Date" [(ngModel)]="filter.end_date" (click)="openDatePicker(picker2)" name="end_date" matInput (dateChange)="getReedamList('')" [matDatepicker]="picker2" >
+                                        <input placeholder="Offer Date" [(ngModel)]="filter.estimated_date" (click)="openDatePicker(picker2)" name="estimated_date" matInput (dateChange)="getReedamList('')" [matDatepicker]="picker2" >
                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
                                     </mat-form-field>
@@ -254,16 +268,22 @@
                         <td class="w100">{{val.mobile_no}}</td>
                         <td class="w100 bg-change {{val.karigar_status}}">{{val.karigar_status}}</td>
                         <!-- <td class="w130 ">{{val.sales_name}}</td> -->
+                        <td class="w90 ">{{val.redeem_type | titlecase}}</td>
                         <td class="w130 ">{{val.gift_title}}</td>
                         <td *ngIf="val.offer_id == 0" ></td>
-                        <td *ngIf="val.offer_id !== 0" ><a  routerLink="/offer-detail"  routerLink="/offer-detail/{{val.offer_id}}" class="blue">{{val.title}} #{{val.offer_code}}</a> -{{val.end_date | date: 'dd MMM yyyy'}}</td>
+                        <td *ngIf="val.offer_id !== 0" ><a  routerLink="/offer-detail"  routerLink="/offer-detail/{{val.offer_id}}" class="blue">{{val.title}} #{{val.offer_code}}</a> -{{val.estimated_date | date: 'dd MMM yyyy'}}</td>
                         <td class="w85  {{val.gift_status}}" >{{val.gift_status}}</td>
                         <td class="w150 {{val.receive_status}}">
                             
+
                             <div class="center"  *ngIf="val.receive_status != 'Received' && val.gift_status == 'Approved'   ">
-                                <select class="{{val.receive_status}}"  [name]="'receive_status'+i" placeholder="Status" [(ngModel)]="val.receive_status" (change)="karigarsSatus(i) " >
-                                    <option  value="">Under Process</option>
-                                    <option  value="Shipped" class="Shipped">Shipped</option>
+                                <select class="{{val.receive_status}}"  [name]="'receive_status'+i" placeholder="Status" [(ngModel)]="val.receive_status" (change)="karigarsSatus(i, val.redeem_type) " >
+                                    <option  value="" [disabled]="val.receive_status == 'Transfer' || val.receive_status == 'Shipped' ">Under Process</option>
+                                    <option *ngIf="val.redeem_type == 'Cash'"  value="Transfer" class="Shipped">Transfer</option>
+                                    <option *ngIf="val.redeem_type == 'gift'" value="Shipped" class="Shipped">Shipped</option>
+                                    <option *ngIf="val.receive_status == 'Shipped' " value="Received" class="Shipped">Received</option>
+
+    
                                 </select> 
                             </div>
                             <div  *ngIf="val.receive_status != 'Received' && val.gift_status == 'Pending'   ">
@@ -272,6 +292,23 @@
                             <ng-container *ngIf="val.receive_status == 'Received'  ">
                                 {{val.receive_status}}
                             </ng-container>
+
+
+
+
+
+                            <!-- <div class="center"  *ngIf="val.receive_status != 'Received' && val.gift_status == 'Approved'   ">
+                                <select class="{{val.receive_status}}"  [name]="'receive_status'+i" placeholder="Status" [(ngModel)]="val.receive_status" (change)="karigarsSatus(i) " >
+                                    <option  value="Under Process">Under Process</option>
+                                    <option  value="Shipped" class="Shipped">Shipped</option>
+                                </select> 
+                            </div>
+                            <div  *ngIf="val.receive_status != 'Received' && val.gift_status == 'Pending'   ">
+                                <p class="center">---</p>
+                            </div>
+                            <ng-container *ngIf="val.receive_status == 'Received'  ">
+                                {{val.receive_status}}
+                            </ng-container> -->
                             
                         </td>
                         <td class="w110 blue">

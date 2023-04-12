@@ -27,8 +27,12 @@ export class MechanicChangeStatusComponent implements OnInit {
             
             this.data.id = model_data.id; 
             this.data.status = model_data.status; 
+      
             this.data.district = model_data.district; 
             this.karigarform.machanic_type = model_data.machanic_type; 
+            this.karigarform.head_machanic_id = model_data.head_machanic_id; 
+           
+            console.log( this.sales_list);
 
             this.getSales_list();
             
@@ -47,7 +51,7 @@ export class MechanicChangeStatusComponent implements OnInit {
         karigarstatus(form:any)
         {
             this.savingData = true;
-            this.db.post_rqst( { 'id': this.data.id,'status': this.karigarform.status,'machanic_type': this.karigarform.machanic_type,'head_mechanic_id':this.karigarform.sales_employee_id}, 'karigar/karigarStatus')
+            this.db.post_rqst( { 'id': this.data.id,'status': this.karigarform.status,'machanic_type': this.karigarform.machanic_type,'head_mechanic_id':this.karigarform.head_machanic_id}, 'karigar/karigarStatus')
             .subscribe( d => {
                 this.savingData = false;
                 this.dialog.success( 'Status successfully Change');
@@ -69,7 +73,8 @@ export class MechanicChangeStatusComponent implements OnInit {
             this.filter.limit = 0;
             this.db.post_rqst({'filter':this.filter}, 'master/head_machanic_list')
                 .subscribe(d => {
-                    this.sales_list = d.head_machanic;                
+                    this.sales_list = d.head_machanic;  
+                    console.log( this.sales_list);              
                 });
                
         }

@@ -372,7 +372,7 @@ export class DashboardComponent implements OnInit {
         }
 
         state_wise_dealer(){
-            this.db.post_rqst({},'master/stateWiseKarigar')
+            this.db.post_rqst({},'master/state_wise_coupons')
             .subscribe((resp)=>
             {
                 console.log(resp);

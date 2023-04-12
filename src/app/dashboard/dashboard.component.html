@@ -79,13 +79,13 @@
                     </div>
                     <div class="bottom-item">
                         <div class="cs-item">
-                            <span>{{user_karigar}}</span>
-                            <p>Mechanic</p>
+                            <span>{{head_machanic}}</span>
+                            <p>Head Mechanic</p>
                         </div>
-                        <!-- <div class="cs-item">
-                            <span>{{user_Retailer}}</span>
-                            <p>Dealer</p>
-                        </div> -->
+                        <div class="cs-item">
+                            <span>{{assitant_machanic}}</span>
+                            <p>Assistant Mechanic</p>
+                        </div>
                         <!-- <div class="cs-item">
                             <span>{{user_Distributor}}</span>
                             <p>Distributor</p>
@@ -99,13 +99,13 @@
                     </div>
                     <div class="counter-name">Gift Gallery</div>
                 </li>
-                <li matRipple style="background: #8a2000;" (click)="goto_productPage()">
+                <!-- <li matRipple style="background: #8a2000;" (click)="goto_productPage()">
                     <div class="counter-value">
                         <div class="counter-icon"><img src="assets/img/dashboard/product.svg"></div>
                         <p>{{products}}</p>
                     </div>
                     <div class="counter-name">Product</div>
-                </li>
+                </li> -->
                 <li matRipple style="background: #665c5a;" (click)="goto_feedbackPage()">
                     <div class="counter-value">
                         <div class="counter-icon"><img class="h30" src="assets/img/dashboard/messages.svg"></div>
@@ -117,22 +117,30 @@
         </div>
         
         <div class="row mb15">
-            <!-- <div class="col s6">
+            <div class="col s6">
                 <div class="pie-chart">
                     <div class="chart-header">
-                        <p>Dealer Wise Coupon Scanned</p>
+                        <p>State Wise Karigar</p>
                     </div>
-                    <div class="graph">
+                    <!-- <div class="graph">
                         <fusioncharts
                         width="100%"
                         height="300"
                         type="spline"
                         [dataSource]="karigar_Source">
                     </fusioncharts>
+                </div> -->
+
+
+                <div class="graph">
+                    <fusioncharts width="100%" height="300" type="pie3d" [dataSource]=karigar_Source>
+                    </fusioncharts>
                 </div>
+
+
             </div>
-        </div> -->
-        <!-- <div class="col s12">
+        </div>
+        <!-- <div class="col s6">
             <div class="pie-chart">
                 <div class="chart-header">
                     <p>State Wise Dealer</p>

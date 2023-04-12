@@ -15,7 +15,7 @@
                       <mat-select class="karigarform.status" placeholder="Status" [(ngModel)] = "karigarform.status" #status="ngModel" name="status" required>
                           <mat-option value ="Pending" class="Pending">Pending</mat-option>
                           <mat-option value ="Reject" class="Reject">Reject</mat-option>
-                          <mat-option value ="Approved" class="Approved">Approved</mat-option>
+                          <mat-option value ="Verified" class="Verified">Verified</mat-option>
                           <mat-option value ="Suspect" class="Suspect">Suspect</mat-option>
                       </mat-select>
                   </mat-form-field>
@@ -29,13 +29,13 @@
                   </mat-form-field>
               </div>
           </div>
-          <div class="option-field" *ngIf="karigarform.status == 'Approved'">
+          <div class="option-field" *ngIf="karigarform.status == 'Verified'">
             <div class="control-field">
                 <mat-form-field class="cs-input">
                     <mat-label>Select Mechanic Type</mat-label>
                     <mat-select  [(ngModel)]="karigarform.machanic_type" name="machanic_type" #machanic_type="ngModel" required>
                         <mat-option value="Head Mechanic">Head Mechanic</mat-option>
-                        <mat-option value="Assistance Mechanic" class="Assistance Mechanic">Assistance Mechanic</mat-option>
+                        <mat-option value="Assistant Mechanic" class="Assistant Mechanic">Assistant Mechanic</mat-option>
                     </mat-select>
                 </mat-form-field>  
             </div>
@@ -43,7 +43,7 @@
           
         </div>
 
-        <div class="option-field" *ngIf="karigarform.machanic_type == 'Assistance Mechanic' && karigarform.status == 'Approved'">
+        <div class="option-field" *ngIf="karigarform.machanic_type == 'Assistant Mechanic' && karigarform.status == 'Verified'">
             <!-- <div class="control-field">
                 <mat-form-field  class="cs-input">
                     <textarea matInput placeholder="Description" class="h106" name="desc" [(ngModel)] = "karigarform.desc" #desc="ngModel" ></textarea>
@@ -54,8 +54,8 @@
 
                 <div class="control-field">
                   <mat-form-field class="cs-input">
-                    <mat-select placeholder="Select Assistance Mechanic" name="sales_employee_id"
-                      [(ngModel)]="karigarform.sales_employee_id" #sales_employee_id="ngModel">
+                    <mat-select placeholder="Select Assistant Mechanic" name="head_machanic_id"
+                      [(ngModel)]="karigarform.head_machanic_id" #head_machanic_id="ngModel">
                       <mat-option *ngFor="let val of sales_list" [value]="val.id"> {{val.full_name | titlecase}} {{val.mobile_no}}
                       </mat-option>
                     </mat-select>

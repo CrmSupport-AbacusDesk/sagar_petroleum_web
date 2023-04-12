@@ -172,13 +172,53 @@ export class RedeemRequestListComponent implements OnInit {
     }
     
     
-    shippedModel(i){
+    // shippedModel(i){
         
+    //     const dialogRef = this.alrt.open(ShippedDetailModelComponent,{
+    //         width: '500px',
+            
+    //         data: {
+    //             id:  this.reedam[i].id ,
+    //             karigar_id:this.reedam[i].karigar_id,
+    //         }
+    //     });
+    //     dialogRef.afterClosed().subscribe(result => {
+    //         if( result ){
+    //             this.giftStatus(i);
+    //         }else{
+    //             this.getReedamList('');
+    //         }
+    //     });
+        
+        
+    // }
+    
+    // karigarsSatus(i) {
+        
+    //     if(this.reedam[i].receive_status == 'Shipped')
+    //     {
+    //         this.shippedModel(i);
+    //         return;
+    //     }
+        
+    //     this.giftStatus(i);
+        
+    // }
+    
+
+
+
+
+    shippedModel(i, type){
+        console.log('====================================');
+        console.log(type);
+        console.log('====================================');
         const dialogRef = this.alrt.open(ShippedDetailModelComponent,{
             width: '500px',
             
             data: {
                 id:  this.reedam[i].id ,
+                'payment_type': type,
                 karigar_id:this.reedam[i].karigar_id,
             }
         });
@@ -192,19 +232,30 @@ export class RedeemRequestListComponent implements OnInit {
         
         
     }
-    
-    karigarsSatus(i) {
+
+
+
+
+     karigarsSatus(i, type) {
+        console.log(type);
         
+        
+        // if(this.reedam[i].receive_status == 'Transfer' || this.reedam[i].receive_status == 'Shipped')
+        // {
+        //     this.shippedModel(i, type);
+        //     return;
+        // }
+
+
         if(this.reedam[i].receive_status == 'Shipped')
         {
-            this.shippedModel(i);
+            this.shippedModel(i, type);
             return;
         }
         
         this.giftStatus(i);
         
     }
-    
     
     
     giftStatus(i){

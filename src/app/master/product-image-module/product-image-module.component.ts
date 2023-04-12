@@ -16,12 +16,14 @@ export class ProductImageModuleComponent implements OnInit {
     mode:any;
     image_type:any="";
     uploadUrl:any='';
+    part_data_shop: any = [];
     
     constructor(public db: DatabaseService, private route: ActivatedRoute,private router: Router,  public dialog: DialogComponent,@Inject(MAT_DIALOG_DATA) public lead_data: any, public dialogRef: MatDialogRef<ProductImageModuleComponent>)
     {
         console.log(lead_data);
         
         this.part_data.id = lead_data.id; 
+        this.part_data_shop.image = lead_data.image; 
         this.part_data.reedem_id = lead_data.reedem_id; 
         this.part_data.offer_gift_id = lead_data.offer_gift_id; 
         this.part_data.mode = lead_data.mode; 
@@ -61,7 +63,7 @@ export class ProductImageModuleComponent implements OnInit {
             this.getKarigarDocument();
         }
 
-        if( this.part_data.mode == 'test8' )
+        if( this.part_data.mode == 'test67' )
         {
             this.getKarigarDocument();
         }
@@ -162,6 +164,8 @@ export class ProductImageModuleComponent implements OnInit {
     }
     
     documentImage:any = {};
+    documentImageShop:any = [];
+    docImg:any;
     getKarigarDocument() {
         this.loading_list = true;
         this.db.post_rqst(  {'reedem_id':this.part_data.reedem_id, 'id' : this.part_data.id  } , 'karigar/karigarDocumentImage')
@@ -169,6 +173,16 @@ export class ProductImageModuleComponent implements OnInit {
             console.log( d );
             this.loading_list = false;
             this.documentImage = d.documentImage;
+
+            this.documentImageShop = d.documentImage.shop_image;
+
+            // for(let i=0;i<this.documentImageShop.length;i++){
+
+            //     this.docImg=this.documentImageShop[i].image;
+            // }
+
+ console.log(this.documentImageShop);
+     
             console.log(this.gift);
         });
     }

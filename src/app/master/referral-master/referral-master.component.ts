@@ -32,6 +32,9 @@ export class ReferralMasterComponent implements OnInit {
       this.refer.owner_referal_point = resp['refer_othr_detail'].owner_ref_point;
       this.refer.birthday_points = resp['refer_othr_detail'].birthday_points;
       this.refer.min_gif_per = resp['refer_per_detail'].one_time_percentage;
+
+      this.refer.cash_redemption_limit = resp['refer_othr_detail'].cash_redemption_limit;
+
     })
   }
   
