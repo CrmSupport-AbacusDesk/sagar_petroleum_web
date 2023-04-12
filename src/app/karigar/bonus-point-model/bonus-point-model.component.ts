@@ -27,7 +27,7 @@ export class BonusPointModelComponent implements OnInit {
         console.log(this.karigar_data);
         console.log(this.point);
         this.loading = true;
-        this.db.post_rqst({"point":this.point,"karigar_data":this.karigar_data},"karigar/bonus_points")
+        this.db.post_rqst({"point":this.point,"id":this.karigar_data.id},"karigar/bonus_points")
         .subscribe(resp=>{
             console.log(resp);
             if(resp['status'] == "SUCCESS")

@@ -74,6 +74,8 @@ export class DashboardComponent implements OnInit {
 
     access_level:any;
     users: any = {};
+    head_machanic: any;
+    assitant_machanic: any;
 
 
     
@@ -208,6 +210,10 @@ export class DashboardComponent implements OnInit {
                 this.user_Retailer=resp.user_Retailer;
                 this.user_Distributor=resp.user_Distributor;
                 this.unread_counts=resp.unread;
+
+                this.assitant_machanic=resp.assitant_machanic;
+                this.head_machanic=resp.head_machanic;
+
             });
         }
         

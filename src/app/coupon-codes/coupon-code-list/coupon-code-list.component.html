@@ -447,7 +447,7 @@
                         <td class="w200">{{val.product_point_group}}</td>
 
                         <!-- <td><a class="blue" routerLink="/offer-detail/{{val.offer_id}}" routerLinkActive="active">{{val.title}} #{{val.offer_code}} </a> / {{val.end_date | date : 'dd MMM yyyy'}}</td> -->
-                        <td class="w250"><p>{{val.scan_by_karigar_date | date : 'dd MMM yyyy'}} / <a class="blue" routerLink="/karigar-detail/{{val.karigar_id}}/1" routerLinkActive="active">{{val.first_name  | titlecase }} {{val.last_name  | titlecase }}</a></p></td>
+                        <td class="w250"><p>{{val.scan_by_karigar_date | date : 'dd MMM yyyy'}} / <a class="blue" routerLink="/karigar-detail/{{val.scan_by_karigar_id}}/1" routerLinkActive="active">{{val.first_name  | titlecase }} {{val.last_name  | titlecase }}</a></p></td>
                         <td class="w110">{{val.mobile_no}}</td>
                         <td class="w80 text-center"><span class="back-bg">{{val.karigar_coupon_value}}</span></td>      
                         <td class="w100">{{val.state}}</td>   

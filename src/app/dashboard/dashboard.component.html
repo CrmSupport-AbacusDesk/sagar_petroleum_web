@@ -84,7 +84,7 @@
                         </div>
                         <div class="cs-item">
                             <span>{{assitant_machanic}}</span>
-                            <p>Assistant Mechanic</p>
+                            <p class="ast_ft">Assistant Mechanic</p>
                         </div>
                         <!-- <div class="cs-item">
                             <span>{{user_Distributor}}</span>
@@ -140,6 +140,52 @@
 
             </div>
         </div>
+
+
+
+
+
+
+
+        <div class="col s6">
+            <div class="pie-chart">
+                <div class="chart-header">
+                    <p>Offer Balance Day's</p>
+                </div>
+                <div class="cs-table scroll-335">
+                    <table>
+                        <tr>
+                            <th class="first-head">
+                                <div class="table-head">
+                                    <table>
+                                        <tr>
+                                            <th>Offer</th>
+                                            <th class="w80 text-center">Day's</th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-body">
+                                    <table>
+                                        <tr *ngFor="let data of offer_balance_days">
+                                            <td>{{data.title | titlecase}}  #{{data.id}}</td>
+                                            <td class="w80 day">{{data.balance_days}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
         <!-- <div class="col s6">
             <div class="pie-chart">
                 <div class="chart-header">
@@ -365,7 +411,7 @@
 
 
 <div class="row mb15">
-    <div class="col s6">
+    <!-- <div class="col s6">
         <div class="pie-chart">
             <div class="chart-header">
                 <p>Offer Balance Day's</p>
@@ -399,7 +445,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div> -->
     
     <!-- <div class="col s4  ">
         <div class="pie-chart">
