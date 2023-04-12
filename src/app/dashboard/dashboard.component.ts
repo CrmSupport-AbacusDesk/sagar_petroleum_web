@@ -39,12 +39,20 @@ export class DashboardComponent implements OnInit {
     data_Source:any;
     karigar_Source:any;
     dealer_Source:any;
+    coupon_Source:any;
+
     distributor_Source:any;
     karigar_state_wise:any=[];
     dealer_state_wise:any=[];
+    coupon_state_wise:any=[];
+
     distributor_state_wise:any=[];
     stateWiseKarigar:any=[];
     stateWiseDealer:any=[];
+
+
+    stateWiseCoupon:any=[];
+
     stateWiseDistributor:any=[];
 
     /// @ DSR's and Sales Person Graph variables
@@ -89,7 +97,7 @@ export class DashboardComponent implements OnInit {
         this.get_super_dealers();
         this.get_offer_balance_days();
         this.state_wise_karigar();
-        this.state_wise_dealer();
+        this.state_wise_coupon();
         this.state_wise_distributor();
         this.coupon_code_graph();
         this.get_scan_coupon_data();
@@ -377,27 +385,27 @@ export class DashboardComponent implements OnInit {
             })
         }
 
-        state_wise_dealer(){
+        state_wise_coupon(){
             this.db.post_rqst({},'master/state_wise_coupons')
             .subscribe((resp)=>
             {
                 console.log(resp);
-                this.stateWiseDealer=resp.state_wise_Retailer;
+                this.stateWiseCoupon=resp.state_wise_coupons;
                 
-                for (let i=0;i < this.stateWiseDealer.length; i++)
+                for (let i=0;i < this.stateWiseCoupon.length; i++)
                 {
-                    this.dealer_state_wise.push({"label": this.stateWiseDealer[i].state,"value": this.stateWiseDealer[i].total_retailer});
+                    this.coupon_state_wise.push({"label": this.stateWiseCoupon[i].state,"value": this.stateWiseCoupon[i].coupon_count});
                 }
-                console.log(this.dealer_state_wise);
+                console.log(this.coupon_state_wise);
                 
-                this.dealer_Source = {
+                this.coupon_Source = {
                     "chart": {
                         "xAxisName": "States",
-                        "yAxisName": "Dealers",
+                        "yAxisName": "Counts",
                         // "numberSuffix": "k",
                         "theme": "fusion",
                     },
-                    "data": this.dealer_state_wise            
+                    "data": this.coupon_state_wise            
                 };
             })
         }
