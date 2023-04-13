@@ -340,19 +340,19 @@ export class KarigarAddComponent implements OnInit {
 
 
 
-    onUploadShopImage(evt: any) {
-        const file = evt.target.files[0];
-        console.log(file);
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = this.handleReaderLoaded3.bind(this);
-            reader.readAsBinaryString(file);
-        }
-    }
-    handleReaderLoaded3(e) {
-        this.karigarform.shop_image = 'data:image/png;base64,' + btoa(e.target.result) ;
-        console.log( this.karigarform.shop_image );
-    }
+    // onUploadShopImage(evt: any) {
+    //     const file = evt.target.files[0];
+    //     console.log(file);
+    //     if (file) {
+    //         const reader = new FileReader();
+    //         reader.onload = this.handleReaderLoaded3.bind(this);
+    //         reader.readAsBinaryString(file);
+    //     }
+    // }
+    // handleReaderLoaded3(e) {
+    //     this.karigarform.shop_image = 'data:image/png;base64,' + btoa(e.target.result) ;
+    //     console.log( this.karigarform.shop_image );
+    // }
 
     selectSales()
     {

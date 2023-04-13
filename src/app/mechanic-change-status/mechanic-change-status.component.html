@@ -54,7 +54,7 @@
 
                 <div class="control-field">
                   <mat-form-field class="cs-input">
-                    <mat-select placeholder="Select Assistant Mechanic" name="head_machanic_id"
+                    <mat-select placeholder="Select Head Mechanic" name="head_machanic_id"
                       [(ngModel)]="karigarform.head_machanic_id" #head_machanic_id="ngModel">
                       <mat-option *ngFor="let val of sales_list" [value]="val.id"> {{val.full_name | titlecase}} {{val.mobile_no}}
                       </mat-option>

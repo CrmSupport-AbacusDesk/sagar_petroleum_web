@@ -94,7 +94,7 @@
                     <table >
                         <tr>
                             <th class="w50 border-right text-center">S.No.</th>
-                            <th class="w140">Date / Created by</th>
+                            <th class="w140">Date</th>
                             <!-- <th class="w100">Type</th> -->
                             <th>Coupon Code</th>
                             <!-- <th class="w200" >Product Code</th> -->
@@ -164,7 +164,7 @@
                     <table >
                         <tr>
                             <th class="w50 border-right text-center">S.No.</th>
-                            <th class="w180">Date / Created by</th>
+                            <th class="w180">Date</th>
                             <th class="w200" >Coupon Code</th>
                             <!-- <th class="w200" >Product Code</th> -->
                             <th class="w200" >Product Point Group</th>
@@ -279,7 +279,7 @@
                     <table >
                         <tr>
                             <th class="w50 border-right text-center">S.No.</th>
-                            <th class="w180">Date / Created by</th>
+                            <th class="w180">Date</th>
                             <th class="w200" >Coupon Code</th>
                             <th class="w200" >Product Details</th>
                             <th class="w150">Company Name</th>
@@ -404,7 +404,7 @@
                 <table>
                     <tr class="arject" *ngFor="let val of coupon; let i = index">
                         <td class="w50 text-center">{{ i + 1 + sr_no }}</td>
-                        <td class="w140">{{val.date_created  == '0000-00-00 00:00:00' ? 'N/A' : val.date_created | date: 'dd MMM yyyy'}} / {{val.created_name}}</td>
+                        <td class="w140">{{val.date_created  == '0000-00-00 00:00:00' ? 'N/A' : val.date_created | date: 'dd MMM yyyy'}} </td>
                         <!-- <td class="w100">{{val.type | titlecase}}</td> -->
                         <td>{{val.coupon_code}}</td>
                         <!-- <td class="w200">{{val.product_code ? val.product_code : 'N/A'}}</td> -->
@@ -437,7 +437,7 @@
                 <table>
                     <tr class="arject" *ngFor="let val of scanned_coupon; let i = index">
                         <td class="w50 text-center">{{ i + 1 + sr_no }}</td>
-                        <td class="w180"><ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> {{val.date_created | date: 'dd MMM yyyy'}} / </ng-container>{{val.created_name}}</td>
+                        <td class="w180"><ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> {{val.date_created | date: 'dd MMM yyyy'}}  </ng-container></td>
                         <td class="w200">{{val.coupon_code}}</td>
                         <!-- <td class="w200">
                             <ng-container *ngIf="val.product_code">
@@ -465,7 +465,7 @@
                 <table>
                     <tr class="arject" *ngFor="let val of scanned_coupon; let i = index">
                         <td class="w50 text-center">{{ i + 1 + sr_no }}</td>
-                        <td class="w180"><ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> {{val.date_created | date: 'dd MMM yyyy'}} /</ng-container>{{val.created_name}}</td>
+                        <td class="w180"><ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> {{val.date_created | date: 'dd MMM yyyy'}} </ng-container></td>
                         <td class="w200">{{val.coupon_code}}</td>
                         <td class="w200">
                             <ng-container *ngIf="val.product_code">
