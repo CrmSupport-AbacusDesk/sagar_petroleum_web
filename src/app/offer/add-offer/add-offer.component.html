@@ -59,8 +59,8 @@
                                                             [(ngModel)]="addOffer.start_date" name="start_date" matInput
                                                             [matDatepicker]="picker1" required readonly>
                                                         <mat-datepicker-toggle matSuffix
-                                                            [for]="picker1"></mat-datepicker-toggle>
-                                                        <mat-datepicker #picker1></mat-datepicker>
+                                                            [for]="picker1" required></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker1 required></mat-datepicker>
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -301,7 +301,7 @@
                     </div>
                 </div>
                 <div class="save un-save" [ngClass]="{loading: savingData}">
-                    <button mat-button [disabled]="savingData" (click)="saveOffer(f)">SAVE</button>
+                    <button mat-button [disabled]="savingData == true" (click)="f.form.vaild && saveOffer(f)">SAVE</button>
                 </div>
             </form>
         </div>

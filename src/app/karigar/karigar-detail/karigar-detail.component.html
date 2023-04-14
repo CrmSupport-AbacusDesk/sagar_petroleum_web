@@ -131,7 +131,15 @@
                                                 </div>
                                             </figure>
                                         </li>
+                                        <li>
+                                            <p>Category</p>
+                                            <span>{{getData.user_category ? getData.user_category : 'N/A'}}</span>
+                                        </li>
 
+                                        <li>
+                                            <p>Mechanic Type</p>
+                                            <span>{{getData.machanic_type ? getData.machanic_type : 'N/A'}}</span>
+                                        </li>
 
                                         <li>
                                             <figure>
@@ -260,7 +268,7 @@
 
 
 
-                <div class="sprate-box gift-offer mb15">
+                <div class="sprate-box gift-offer mb15" *ngIf="getData.machanic_type =='Assistant Mechanic'">
                     <div class="full-offer">
                         <div class="top-heading">
                             <h2> HEAD MECHANIC DETAIL</h2>
@@ -422,7 +430,7 @@
 
 
 
-                <div class="sprate-box gift-offer">
+                <!-- <div class="sprate-box gift-offer">
                     <div class="full-offer">
                         <div class="top-heading">
                             <h2>CUSTOMER CATEGORY DETAIL</h2>
@@ -440,7 +448,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
 

@@ -631,7 +631,7 @@ export class DashboardComponent implements OnInit {
       
 
         if(this.access_level ==1 ){
-            this.router.navigate(['karigar-list']);
+            this.router.navigate(['karigar-list/1']);
             }
     }
     

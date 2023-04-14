@@ -29,7 +29,7 @@
                                 <div class="control-field">
                                     <mat-form-field class="cs-input">
                                         <input matInput placeholder="Last Name" name="last_name"
-                                            [(ngModel)]="karigarform.last_name" #last_name="ngModel" required>
+                                            [(ngModel)]="karigarform.last_name" #last_name="ngModel" >
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                                             <mat-form-field class="cs-input">
                                                 <input placeholder="D.O.B" class="h46" [(ngModel)]="karigarform.dob"
                                                     (click)="openDatePicker(picker)" [max]="date1" name="dob" matInput
-                                                    [matDatepicker]="picker" required readonly>
+                                                    [matDatepicker]="picker"  readonly>
                                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker></mat-datepicker>
                                             </mat-form-field>

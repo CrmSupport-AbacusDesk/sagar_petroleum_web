@@ -16,7 +16,7 @@ export class AddOfferComponent implements OnInit {
   addOffer: any = {};
   addArea: any = {};
   addGift: any = {};
-  savingData = false;
+  savingData:boolean = false;
   states: any = [];
   districts: any = [];
   cities: any = [];

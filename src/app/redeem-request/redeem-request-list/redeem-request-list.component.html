@@ -281,7 +281,7 @@
                                     <option  value="" [disabled]="val.receive_status == 'Transfer' || val.receive_status == 'Shipped' ">Under Process</option>
                                     <option *ngIf="val.redeem_type == 'Cash'"  value="Transfer" class="Shipped">Transfer</option>
                                     <option *ngIf="val.redeem_type == 'gift'" value="Shipped" class="Shipped">Shipped</option>
-                                    <option *ngIf="val.receive_status == 'Shipped' " value="Received" class="Shipped">Received</option>
+                                    <option *ngIf="val.receive_status == 'Shipped' || val.receive_status == 'Transfer' " value="Received" class="Shipped">Received</option>
 
     
                                 </select> 
