@@ -301,7 +301,7 @@
                     </div>
                 </div>
                 <div class="save un-save" [ngClass]="{loading: savingData}">
-                    <button mat-button [disabled]="savingData == true" (click)="f.form.vaild && saveOffer(f)">SAVE</button>
+                    <button mat-button [disabled]="savingData == true" (click)="saveOffer(f)">SAVE</button>
                 </div>
             </form>
         </div>
@@ -355,7 +355,7 @@
                 </div>
                 <div class="save un-save" [ngClass]="{loading: savingData}">
                     <a mat-button routerLink="/offer-list" class="link"> Cancel </a>
-                    <button mat-button [disabled]="savingData">SAVE</button>
+                    <button mat-button [disabled]="savingData == true">SAVE</button>
                 </div>
             </form>
         </div>
