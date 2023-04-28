@@ -10,6 +10,7 @@ import { ChangeKarigarStatusComponent } from '../change-karigar-status/change-ka
 import { ChangeStatusComponent } from 'src/app/gift-gallery/change-status/change-status.component';
 import { AssignSlaesComponent } from 'src/app/assign-slaes/assign-slaes.component';
 import { MechanicChangeStatusComponent } from 'src/app/mechanic-change-status/mechanic-change-status.component';
+import { SessionStorage } from 'src/app/_services/SessionService';
 
 
 @Component({
@@ -34,8 +35,18 @@ export class KarigarListComponent implements OnInit {
     karigar_reject : any = 0;
     karigar_suspect : any = 0;
     karigar_verified : any = 0;
+
+    access_level:any;
+    users: any = {};
+
     
-    constructor(public db: DatabaseService, public dialog: DialogComponent,public route:ActivatedRoute,public alrt:MatDialog) {
+    constructor(public db: DatabaseService, public dialog: DialogComponent,public route:ActivatedRoute,public alrt:MatDialog, public ses: SessionStorage) {
+
+        this.users = this.ses.users;
+        this.access_level = this.users.access_level;
+        console.log(this.access_level);
+
+
         this.route.params.subscribe(resp=>{
             this.current_page = resp.page;
         });

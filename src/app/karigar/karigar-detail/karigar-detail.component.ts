@@ -12,6 +12,7 @@ import {ChangeStatusComponent} from '../../gift-gallery/change-status/change-sta
 import { ReedemCouponSummaryComponent } from '../reedem-coupon-summary/reedem-coupon-summary.component';
 import { ReopenRemarkModleComponent } from 'src/app/offer/reopen-remark-modle/reopen-remark-modle.component';
 import { BonusPointModelComponent } from '../bonus-point-model/bonus-point-model.component';
+import { MechanicChangeStatusComponent } from 'src/app/mechanic-change-status/mechanic-change-status.component';
 // import { log } from 'console';
 @Component({
     selector: 'app-karigar-detail',
@@ -33,12 +34,17 @@ export class KarigarDetailComponent implements OnInit {
     mindate :any = new Date();  
     getData1: any =[];
     uploadUrl:any =''
+    access_level:any;
+    users: any = {};
 
 
 
     constructor(public db: DatabaseService, private route: ActivatedRoute, private router: Router, public ses: SessionStorage,public dialog: DialogComponent, public alrt:MatDialog ) {
         console.log(router);
         this.uploadUrl = db.uploadUrl;
+        this.users = this.ses.users;
+        this.access_level = this.users.access_level;
+        console.log(this.access_level);
     }
     
     mode:any=1;
@@ -90,7 +96,45 @@ export class KarigarDetailComponent implements OnInit {
         });
     }
     
+
+    // karigarsKycSatus() {
+    //     this.db.post_rqst({ 'kyc_status' : this.getData.kyc_status, 'id' : this.getData.id ,'karigar_id':this.karigar_id}, 'karigar/update_kyc_status')
+    //     .subscribe(d => {
+    //         console.log(d);
+    //         this.getKarigarDetails();
+    //     });
+    // }
     
+
+
+
+    karigarsKycSatus(id,kyc_status)
+    {
+        console.log(kyc_status);
+        
+        const dialogRef = this.alrt.open(MechanicChangeStatusComponent,{
+            width: '500px',
+            // height:'500px',
+            
+            data: {
+                'id' : id,
+                'kyc_status' : kyc_status,
+                'karigar_id': this.karigar_id,
+        
+                'type':'type'
+
+
+            }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if( result ){
+                this.getKarigarDetails();
+            }
+        });
+    }
+
+
+
     
     coupandetail:any = [];
     couponDetail()

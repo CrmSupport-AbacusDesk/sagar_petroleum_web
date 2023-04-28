@@ -13,7 +13,7 @@
                         <div class="top-heading no-justify">
                             <a class="back-btn" (click)="goBack()"><i class="material-icons">arrow_back</i></a>
                             <h2>MECHANIC DETAIL</h2>
-                            <div class="btn-align" *ngIf="getData.machanic_type == 'Head Mechanic'">
+                            <div class="btn-align" *ngIf="getData.machanic_type == 'Head Mechanic' && this.access_level ==1  ">
                                 <button class="back-btn" (click)="openBonusPoint()">BONUS POINTS</button>
                             </div>
                         </div>
@@ -31,6 +31,11 @@
                             <div class="basic-details">
                                 <div class="profile-info">
                                     <ul>
+
+                                        <li>
+                                            <p>Mechanic Type</p>
+                                            <span>{{getData.machanic_type ? getData.machanic_type : 'N/A'}}</span>
+                                        </li>
                                         <li>
                                             <figure>
                                                 <div class="left-img zoom-cursor">
@@ -65,7 +70,7 @@
                                                 </div>
                                                 <div class="right-cont">
                                                     <p>Date of Birth</p>
-                                                    <span>{{getData.dob | date : 'dd MMM yyyy'}}</span>
+                                                    <span *ngIf="getData.dob != '0000-00-00'">{{getData.dob | date : 'dd MMM yyyy'}}</span>
                                                 </div>
                                             </figure>
 
@@ -84,6 +89,9 @@
                                                     <option class="Suspect" value="Suspect">Suspect</option>
                                                 </select>
                                             </div>
+
+                                           
+
                                         </li>
 
                                         <li>
@@ -104,6 +112,36 @@
                                             </figure>
                                         </li>
                                     </ul>
+
+
+                                    <ul>
+                                        <li>
+                                            <p>Kyc Status</p>
+                                            <div class="center">
+                                                <select class="{{getData.kyc_status}}" name="kyc_status" placeholder="kyc_status"
+                                                    [(ngModel)]="getData.kyc_status" (change)="karigarsKycSatus(getData.id, getData.kyc_status,getData.karigar_id,type ) ">
+                                                    <option class="Verified" value="Verified">Verified</option>
+                                                    <option class="Reject" value="Reject">Reject</option>
+                                                    <option class="Pending" value="Pending">Pending</option>
+                                        
+                                                </select>
+                                            </div>
+                                          
+                                        </li>
+
+                                        <li>
+                                            <p>Kyc Status {{getData.kyc_status}} Date</p>
+                                            <span>{{getData.kyc_status_update_date | date : 'dd MMM yyyy' }}</span>
+                                        </li>
+
+                                        <li *ngIf="getData.kyc_status == 'Reject'">
+                                            <p>Kyc Status Reason</p>
+                                            <span>{{getData.kyc_status_reason ? getData.kyc_status_reason : 'N/A'}}</span>
+                                        </li>
+
+                                    </ul>
+
+
                                     <ul>
                                         <li *ngIf="getData.reference_by">
                                             <figure>
@@ -136,10 +174,7 @@
                                             <span>{{getData.user_category ? getData.user_category : 'N/A'}}</span>
                                         </li>
 
-                                        <li>
-                                            <p>Mechanic Type</p>
-                                            <span>{{getData.machanic_type ? getData.machanic_type : 'N/A'}}</span>
-                                        </li>
+                                     
 
                                         <li>
                                             <figure>
@@ -245,17 +280,16 @@
 
                 <!-- *ngIf="data.user_type=='2'" -->
 
-                <div class="sprate-box gift-offer" >
+                <div class="sprate-box gift-offer">
                     <div class="full-offer">
-                        <div class="top-heading" >
+                        <div class="top-heading">
                             <h2>SHOP DETAIL</h2>
                         </div>
-                        <div class="detail-info pl0 pr0" >
+                        <div class="detail-info pl0 pr0">
                             <div class="img-box" *ngFor="let row of getData1; let i=index">
-                                <img [src]="uploadUrl + row.image "
-                                    >
+                                <img [src]="uploadUrl + row.image ">
 
-                                    <!-- (click)="openDialogShop(getData.id,row.image,'test26')" -->
+                                <!-- (click)="openDialogShop(getData.id,row.image,'test26')" -->
                             </div>
                         </div>
                     </div>
@@ -458,7 +492,7 @@
                         <div class="top-heading">
                             <h2>BANK DETAIL</h2>
                         </div>
-                        <div class="detail-info pl0 pr0">                        
+                        <div class="detail-info pl0 pr0">
                             <div class="basic-details">
                                 <div class="profile-info">
                                     <ul>
@@ -472,7 +506,8 @@
                                         </li>
                                         <li>
                                             <p>Account Holder Name</p>
-                                            <span>{{getData.account_holder_name ? getData.account_holder_name : 'N/A'}}</span>
+                                            <span>{{getData.account_holder_name ? getData.account_holder_name :
+                                                'N/A'}}</span>
                                         </li>
                                         <li>
                                             <p>IFSC Code</p>

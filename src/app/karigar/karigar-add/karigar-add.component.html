@@ -74,7 +74,7 @@
 
 
 
-                            <div class="col s8 ">
+                            <!-- <div class="col s8 ">
                                 <div class="option-field">
                                     <div class="row mb0">
 
@@ -181,14 +181,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
 
 
 
 
-                            <!-- <div class="col s8 ">
+                            <div class="col s8 ">
                                 <div class="option-field">
                                     <div class="row mb0">
                                         <div class="col s6" *ngIf="karigarform.country_id != 99">
@@ -270,14 +270,14 @@
                                                             (keypress)="numeric_Number($event)" maxlength="6"
                                                             minlength="6" name="pincode"
                                                             [(ngModel)]="karigarform.pincode" #pincode="ngModel"
-                                                            required>
+                                                            >
                                                     </mat-form-field>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
 
 
 
@@ -346,8 +346,11 @@
                                         <div class="control-field">
                                             <mat-form-field class="cs-input">
                                                 <input matInput placeholder="Voter No." name="document_no"
-                                                    [(ngModel)]="karigarform.document_no" #document_no="ngModel">
+                                                    [(ngModel)]="karigarform.document_no" #document_no="ngModel" pattern="[A-Z]{3}[0-9]{7}">
                                             </mat-form-field>
+                                            <div *ngIf="document_no.errors?.pattern" class="error">
+                                                <div class="pn_er">Invalid Voter Card Number</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -429,7 +432,7 @@
                                                     pattern="[A-z]{5}[0-9]{4}[A-z]{1}" minlength="10" maxlength="10">
                                             </mat-form-field>
                                             <div *ngIf="pan_no.errors?.pattern" class="error">
-                                                <div class="pn_er">Invaild Pan Card Number</div>
+                                                <div class="pn_er">Invalid Pan Card Number</div>
                                             </div>
                                         </div>
                                     </div>
@@ -481,7 +484,7 @@
                                     <div class="option-field">
                                         <div class="control-field">
                                             <mat-form-field class="cs-input">
-                                                <mat-select [(ngModel)]="karigarform.user_category" name="user_category"
+                                                <mat-select placeholder="Customer Category" [(ngModel)]="karigarform.user_category" name="user_category"
                                                     #user_category="ngModel">
 
                                                     <mat-option value="Truck Mechanic">Truck Mechanic</mat-option>

@@ -1,12 +1,12 @@
 <div class="gift-box">
   <div class="gift-head">
-      <p>Change Mechanic Status</p>
+      <p>Change Status</p>
       <div class="close-icon">
           <button mat-button mat-dialog-close ><i class="material-icons">clear</i></button>
       </div>
   </div>
   
-  <div class="trans pt15">
+  <div class="trans pt15" *ngIf="data.type != 'type'">
       <form name="karigarform" (ngSubmit)="f.form.valid && karigarstatus(f) " #f="ngForm" novalidate autocomplete="off">
           <div class="form-area">
               <div class="slect none-bo mr0">
@@ -39,8 +39,7 @@
                     </mat-select>
                 </mat-form-field>  
             </div>
-
-          
+       
         </div>
 
         <div class="option-field" *ngIf="karigarform.machanic_type == 'Assistant Mechanic' && karigarform.status == 'Verified'">
@@ -49,8 +48,6 @@
                     <textarea matInput placeholder="Description" class="h106" name="desc" [(ngModel)] = "karigarform.desc" #desc="ngModel" ></textarea>
                 </mat-form-field>
             </div> -->
-
-
 
                 <div class="control-field">
                   <mat-form-field class="cs-input">
@@ -61,10 +58,6 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-             
-
-
-
         </div>
        
           
@@ -73,4 +66,58 @@
           </div>
       </form>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="trans pt15" *ngIf="data.type == 'type'">
+    <form name="karigarform" (ngSubmit)="f.form.valid && KycStatus(f) " #f="ngForm" novalidate autocomplete="off">
+        <div class="form-area">
+            <div class="slect none-bo mr0">
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select class="karigarform.kyc_status" placeholder="kyc_status" [(ngModel)] = "karigarform.kyc_status" #kyc_status="ngModel" name="kyc_status" required>
+                        <mat-option value ="Pending" class="Pending">Pending</mat-option>
+                        <mat-option value ="Reject" class="Reject">Reject</mat-option>
+                        <mat-option value ="Verified" class="Verified">Verified</mat-option>
+                        <!-- <mat-option value ="Suspect" class="Suspect">Suspect</mat-option> -->
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <div class="option-field" *ngIf="karigarform.kyc_status == 'Reject'">
+            <div class="control-field">
+                <mat-form-field  class="cs-input">
+                    <textarea matInput placeholder="Description" class="h106" name="kyc_status_reason" [(ngModel)] = "karigarform.kyc_status_reason" #kyc_status_reason="ngModel" ></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    
+
+      
+        
+        <div class="save mt15" [ngClass]="{loading: savingData}">
+            <button mat-button class="mb0"  [disabled]="savingData" >SAVE</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 </div>

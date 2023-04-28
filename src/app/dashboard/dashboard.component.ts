@@ -40,11 +40,16 @@ export class DashboardComponent implements OnInit {
     karigar_Source:any;
     dealer_Source:any;
     coupon_Source:any;
+    day_Source:any;
+    scan_coupon_Source:any;
 
     distributor_Source:any;
     karigar_state_wise:any=[];
     dealer_state_wise:any=[];
     coupon_state_wise:any=[];
+    day_state_wise:any=[];
+
+    six_state_coupon_wise:any=[]
 
     distributor_state_wise:any=[];
     stateWiseKarigar:any=[];
@@ -52,6 +57,8 @@ export class DashboardComponent implements OnInit {
 
 
     stateWiseCoupon:any=[];
+    dayWiseCoupon:any=[];
+    sixMonthStateWiseScannedCoupon:any=[];
 
     stateWiseDistributor:any=[];
 
@@ -98,6 +105,9 @@ export class DashboardComponent implements OnInit {
         this.get_offer_balance_days();
         this.state_wise_karigar();
         this.state_wise_coupon();
+        this.day_wise_coupon_scan_datas();
+        this.sixMonthStateWiseScannedCoupons();
+        // this.sixMonthStateWiseScannedValue();
         this.state_wise_distributor();
         this.coupon_code_graph();
         this.get_scan_coupon_data();
@@ -409,6 +419,101 @@ export class DashboardComponent implements OnInit {
                 };
             })
         }
+
+
+
+
+
+
+        day_wise_coupon_scan_datas(){
+            this.db.post_rqst({},'master/day_wise_coupon_scan_data')
+            .subscribe((resp)=>
+            {
+                console.log(resp);
+                this.dayWiseCoupon=resp.scan_coupon_data;
+                
+                for (let i=0;i < this.dayWiseCoupon.length; i++)
+                {
+                    this.day_state_wise.push({"label": this.dayWiseCoupon[i].scan_by_karigar_date,"value": this.dayWiseCoupon[i].scan_coupon_data});
+                }
+                console.log(this.day_state_wise);
+                
+                this.day_Source = {
+                    "chart": {
+                        "xAxisName": "Date",
+                        "yAxisName": "Scan Coupon",
+                        // "numberSuffix": "k",
+                        "theme": "fusion",
+                    },
+                    "data": this.day_state_wise            
+                };
+            })
+        }
+
+
+
+
+
+
+
+        sixMonthStateWiseScannedCoupons(){
+            this.db.post_rqst({},'master/sixMonthStateWiseScannedCoupon')
+            .subscribe((resp)=>
+            {
+                console.log(resp);
+                this.sixMonthStateWiseScannedCoupon=resp.six_month_state_wise_scanned_coupon;
+                
+                for (let i=0;i < this.sixMonthStateWiseScannedCoupon.length; i++)
+                {
+                    this.six_state_coupon_wise.push({"label": this.sixMonthStateWiseScannedCoupon[i].state,"value": this.sixMonthStateWiseScannedCoupon[i].scanned_coupon});
+                }
+                console.log(this.six_state_coupon_wise);
+                
+                this.scan_coupon_Source = {
+                    "chart": {
+                        "xAxisName": "state",
+                        "yAxisName": "Coupon Scan",
+                        // "numberSuffix": "k",
+                        "theme": "fusion",
+                    },
+                    "data": this.six_state_coupon_wise            
+                };
+            })
+        }
+
+
+
+
+
+        // sixMonthStateWiseScannedValue(){
+        //     this.db.post_rqst({},'master/sixMonthStateWiseScannedCoupon')
+        //     .subscribe((resp)=>
+        //     {
+        //         console.log(resp);
+        //         this.sixMonthStateWiseScannedCoupon=resp.six_month_state_wise_scanned_coupon;
+                
+        //         for (let i=0;i < this.sixMonthStateWiseScannedCoupon.length; i++)
+        //         {
+        //             this.six_state_coupon_wise.push({"label": this.sixMonthStateWiseScannedCoupon[i].state,"value": this.sixMonthStateWiseScannedCoupon[i].coupon_value});
+        //         }
+        //         console.log(this.six_state_coupon_wise);
+                
+        //         this.scan_coupon_Source = {
+        //             "chart": {
+        //                 "xAxisName": "state",
+        //                 "yAxisName": "Coupon Value",
+        //                 // "numberSuffix": "k",
+        //                 "theme": "fusion",
+        //             },
+        //             "data": this.six_state_coupon_wise            
+        //         };
+        //     })
+        // }
+
+
+
+
+
 
         state_wise_distributor(){
 

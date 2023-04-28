@@ -20,13 +20,17 @@ export class MechanicChangeStatusComponent implements OnInit {
     karigarform:any = {};
     filter: any={};
     head_machanic: any;
+    karigar_id:any='';
     
     constructor(public db: DatabaseService, private route: ActivatedRoute, private router: Router,  public dialog: DialogComponent,
         @Inject(MAT_DIALOG_DATA) public model_data: any, public dialogRef: MatDialogRef<MechanicChangeStatusComponent>) {
             console.log(model_data);
-            
             this.data.id = model_data.id; 
             this.data.status = model_data.status; 
+            this.karigarform.kyc_status = model_data.kyc_status; 
+            this.data.type = model_data.type; 
+            this.data.karigar_id = model_data.karigar_id; 
+          console.log(this.data.type);
       
             this.data.district = model_data.district; 
             this.karigarform.machanic_type = model_data.machanic_type; 
@@ -39,6 +43,8 @@ export class MechanicChangeStatusComponent implements OnInit {
         }
         ngOnInit() {
             this.route.params.subscribe(params => {
+
+                this.karigar_id = params['karigar_id'];
                 this.gift_id = params['gift_id'];
                 this.karigarform.status = this.data.status; 
 
@@ -59,6 +65,20 @@ export class MechanicChangeStatusComponent implements OnInit {
                 console.log( d );
             });
         }
+
+
+        KycStatus(form:any)
+        {
+            this.savingData = true;
+            this.db.post_rqst( { 'id': this.data.id,  'kyc_status' : this.karigarform.kyc_status ,'karigar_id':this.data.karigar_id,'kyc_status_reason':this.karigarform.kyc_status_reason}, 'karigar/update_kyc_status')
+            .subscribe( d => {
+                this.savingData = false;
+                this.dialog.success( 'Status successfully Change');
+                this.dialogRef.close(true);
+                console.log( d );
+            });
+        }
+
         
         onNoClick(): void{
             this.dialogRef.close();

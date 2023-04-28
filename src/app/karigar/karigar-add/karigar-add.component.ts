@@ -56,6 +56,10 @@ export class KarigarAddComponent implements OnInit {
             this.loading_list = false;
             console.log(d);
             this.karigarform = d.karigar;
+            if(this.karigarform.dob == '0000-00-00'){
+                this.karigarform.dob = '';
+            }
+
 
             this.getSales_list(this.karigarform.district);
 
@@ -75,66 +79,6 @@ export class KarigarAddComponent implements OnInit {
         })
     }
     
-    // getStateList(){
-    //     this.loading_list = true;
-    //     this.db.get_rqst('', 'app_master/getStates')
-    //     .subscribe(d => {  
-    //         this.loading_list = false;  
-    //         this.states = d.states;
-    //     });
-    // }
-    // getDistrictList(val){
-    //     this.loading_list = true;
-    //     let st_name;
-    //     if(val == 1)
-    //     {
-    //         st_name = this.karigarform.state;
-    //     }
-    //     this.db.post_rqst({'state_name':st_name}, 'app_master/getDistrict')
-    //     .subscribe(d => {  
-    //         this.loading_list = false;
-    //         this.districts = d.districts;  
-    //     });
-    // }
-    // getCityList(val){   
-    //     this.loading_list = true;
-    //     let dist_name;
-    //     if(val == 1)
-    //     {
-    //         dist_name = this.karigarform.district;
-    //     }
-    //     this.db.post_rqst({'district_name':dist_name}, 'app_master/getCity')
-    //     .subscribe(d => {  
-    //         this.loading_list = false;
-    //         this.cities = d.cities;
-    //         this.pincode = d.pins;
-    //     });
-    // }
-    // pincode:any = [];
-    // getPincodeList(val){   
-    //     this.loading_list = true;
-    //     let pincode_name;
-    //     if(val == 1)
-    //     {
-    //         pincode_name = this.karigarform.pincode;
-    //     }
-    //     this.db.post_rqst({'city_name':pincode_name}, 'app_master/getPincodes')
-    //     .subscribe(d => {  
-    //         this.loading_list = false;
-    //         this.pincode = d.pins;
-    //     });
-    // }
-
-
-
-
-
-
-
-
-
-
-
     getStateList(){
         this.loading_list = true;
         this.db.get_rqst('', 'app_master/getStates')
@@ -154,7 +98,6 @@ export class KarigarAddComponent implements OnInit {
         .subscribe(d => {  
             this.loading_list = false;
             this.districts = d.districts;  
-            this.getSales_list(st_name)
         });
     }
     getCityList(val){   
@@ -190,30 +133,91 @@ export class KarigarAddComponent implements OnInit {
 
 
 
-    getaddress(pincode) {
-        if (this.karigarform.pincode.length == '6') {
-            this.db.post_rqst({ 'pincode': pincode }, 'app_karigar/getAddress')
-                .subscribe((result) => {
-                    console.log(result);
-                    var address = result.address;
-                  
-                    if (address != null) {
-                        this.karigarform.state = address.state_name;
-                        this.karigarform.district = address.district_name;
-                        this.karigarform.city = address.city;
-                        console.log(this.karigarform);
-                        this.getDistrictList(1);
-                        // this.getCityList(1);
-                    }
-                    else{
-                     this.dialog.error('Enter Valid Pincode');
 
-                    }
+
+
+
+
+
+    // getStateList(){
+    //     this.loading_list = true;
+    //     this.db.get_rqst('', 'app_master/getStates')
+    //     .subscribe(d => {  
+    //         this.loading_list = false;  
+    //         this.states = d.states;
+    //     });
+    // }
+    // getDistrictList(val){
+    //     this.loading_list = true;
+    //     let st_name;
+    //     if(val == 1)
+    //     {
+    //         st_name = this.karigarform.state;
+    //     }
+    //     this.db.post_rqst({'state_name':st_name}, 'app_master/getDistrict')
+    //     .subscribe(d => {  
+    //         this.loading_list = false;
+    //         this.districts = d.districts;  
+    //         this.getSales_list(st_name)
+    //     });
+    // }
+    // getCityList(val){   
+    //     this.loading_list = true;
+    //     let dist_name;
+    //     if(val == 1)
+    //     {
+    //         dist_name = this.karigarform.district;
+    //     }
+    //     this.db.post_rqst({'district_name':dist_name}, 'app_master/getCity')
+    //     .subscribe(d => {  
+    //         this.loading_list = false;
+    //         this.cities = d.cities;
+    //         this.pincode = d.pins;
+    //     });
+    // }
+    // pincode:any = [];
+    // getPincodeList(val){   
+    //     this.loading_list = true;
+    //     let pincode_name;
+    //     if(val == 1)
+    //     {
+    //         pincode_name = this.karigarform.pincode;
+    //     }
+    //     this.db.post_rqst({'city_name':pincode_name}, 'app_master/getPincodes')
+    //     .subscribe(d => {  
+    //         this.loading_list = false;
+    //         this.pincode = d.pins;
+    //     });
+    // }
+
+
+
+
+
+    // getaddress(pincode) {
+    //     if (this.karigarform.pincode.length == '6') {
+    //         this.db.post_rqst({ 'pincode': pincode }, 'app_karigar/getAddress')
+    //             .subscribe((result) => {
+    //                 console.log(result);
+    //                 var address = result.address;
+                  
+    //                 if (address != null) {
+    //                     this.karigarform.state = address.state_name;
+    //                     this.karigarform.district = address.district_name;
+    //                     this.karigarform.city = address.city;
+    //                     console.log(this.karigarform);
+    //                     this.getDistrictList(1);
+                      
+    //                 }
+    //                 else{
+    //                  this.dialog.error('Enter Valid Pincode');
+
+    //                 }
               
-                });
-        }
+    //             });
+    //     }
     
-    }
+    // }
 
 
 

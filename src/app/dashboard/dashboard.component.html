@@ -1,4 +1,4 @@
-<div class="main-container" >
+<div class="main-container">
     <div class="dashboard">
         <div class="bg-counter">
             <ul>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="counter-name">Offers</div> -->
                 </li>
-                
+
                 <li matRipple style="background: #e65100;" (click)="goto_pending_redeem_rqs_page()">
                     <!-- <div class="counter-value">
                         <div class="counter-icon"><img src="assets/img/dashboard/pending.svg"></div>
@@ -33,7 +33,7 @@
                     <div class="top-item">
                         <h2>Redeem Request</h2>
                         <span class="cs-count">{{pending_redeem_request}}</span>
-                        
+
                     </div>
                     <div class="bottom-item">
                         <div class="cs-item">
@@ -52,11 +52,11 @@
                         <p>{{balance_coupon_value}}</p>
                     </div>
                     <div class="counter-name">Balance Coupon Value</div> -->
-                    
+
                     <div class="top-item">
                         <h2>Total Coupon</h2>
                         <span class="cs-count ttl_vl">{{total_coupon_value}}</span>
-                       
+
                     </div>
                     <div class="bottom-item">
                         <div class="cs-item">
@@ -88,7 +88,7 @@
                             <span>{{assitant_machanic}}</span>
                             <p class="ast_ft">Assistant Mechanic</p>
                         </div>
-                      
+
                     </div>
                 </li>
                 <li matRipple style="background: #3949ab;" (click)="goto_offergiftPage()">
@@ -114,8 +114,9 @@
                 </li>
             </ul>
         </div>
-        
+
         <div class="row mb15">
+
             <div class="col s6">
                 <div class="pie-chart">
                     <div class="chart-header">
@@ -129,63 +130,108 @@
                         [dataSource]="karigar_Source">
                     </fusioncharts>
                 </div> -->
-
-
-                <div class="graph">
-                    <fusioncharts width="100%" height="300" type="pie3d" [dataSource]=karigar_Source>
-                    </fusioncharts>
+                    <div class="graph">
+                        <fusioncharts width="100%" height="300" type="pie3d" [dataSource]=karigar_Source>
+                        </fusioncharts>
+                    </div>
                 </div>
-
-
             </div>
-        </div>
 
-
-
-
-
-
-
-        <div class="col s6">
-            <div class="pie-chart">
-                <div class="chart-header">
-                    <p>Offer Balance Day's</p>
-                </div>
-                <div class="cs-table scroll-335">
-                    <table>
-                        <tr>
-                            <th class="first-head">
-                                <div class="table-head">
-                                    <table>
-                                        <tr>
-                                            <th>Offer</th>
-                                            <th class="w80 text-center">Day's</th>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="table-body">
-                                    <table>
-                                        <tr *ngFor="let data of offer_balance_days">
-                                            <td>{{data.title | titlecase}}  #{{data.id}}</td>
-                                            <td class="w80 day">{{data.balance_days}}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+            <div class="col s6">
+                <div class="pie-chart">
+                    <div class="chart-header">
+                        <p>State Wise Coupon Scan</p>
+                    </div>
+                    <div class="graph">
+                        <fusioncharts width="100%" height="300" type="pie3d" [dataSource]=coupon_Source>
+                        </fusioncharts>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <div class="row mb15">
+
+            <div class="col s12">
+                <div class="pie-chart">
+                    <div class="chart-header">
+                        <p>Day Wise Coupon Scan Data</p>
+                    </div>
+                    <!-- <div class="graph">
+                        <fusioncharts width="100%" height="300" type="spline" [dataSource]="day_Source">
+                        </fusioncharts>
+                    </div> -->
+                    <div class="chart">
+                        <fusioncharts type="Column2d" width="100%" height="350" [dataSource]="day_Source">
+                        </fusioncharts>
+                    </div>
+                </div>
+            </div>
+</div>
+        
+
+<div class="row mb15">
+            <div class="col s12">
+                <div class="pie-chart">
+                    <div class="chart-header">
+                        <p>Six Month State Wise Scanned Coupon</p>
+                    </div>
+                  
+                    <div class="chart">
+                        <fusioncharts type="Column2d" width="100%" height="350" [dataSource]="scan_coupon_Source">
+                        </fusioncharts>
+                    </div>
+                </div>
+            </div>
+
+         </div>
+         
+
+         <div class="row mb15">
+            <div class="col s6">
+                <div class="pie-chart">
+                    <div class="chart-header">
+                        <p>Offer Balance Day's</p>
+                    </div>
+                    <div class="cs-table scroll-335">
+                        <table>
+                            <tr>
+                                <th class="first-head">
+                                    <div class="table-head">
+                                        <table>
+                                            <tr>
+                                                <th>Offer</th>
+                                                <th class="w80 text-center">Day's</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-body">
+                                        <table>
+                                            <tr *ngFor="let data of offer_balance_days">
+                                                <td>{{data.title | titlecase}} #{{data.id}}</td>
+                                                <td class="w80 day">{{data.balance_days}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col s6">
+                </div>
+</div>
 
 
 
-        <!-- <div class="col s6">
+            <!-- <div class="col s6">
             <div class="pie-chart">
                 <div class="chart-header">
                     <p>State Wise Dealer</p>
@@ -200,7 +246,7 @@
             </div>
         </div>
     </div> -->
-    <!-- <div class="col s12">
+            <!-- <div class="col s12">
         <div class="pie-chart">
             <div class="chart-header">
                 <p>Zone Wise Coupon Scanned</p>
@@ -229,7 +275,7 @@
 </div> -->
 
 
-<!-- <div class="col s8">
+            <!-- <div class="col s8">
     <div class="pie-chart">
         <div class="chart-header">
             <p>Coupon Code Graph Used As Availble</p>
@@ -240,11 +286,11 @@
         </div>
     </div>
 </div> -->
-</div>
+      
 
-<div class="row mb15">
-    <div class="col s6">
-        <!-- <div class="pie-chart">
+        <div class="row mb15">
+            <div class="col s6">
+                <!-- <div class="pie-chart">
             <div class="chart-header">
                 <p *ngIf="topTenDsr == true">Top 10 DSR's</p>
                 <p *ngIf="topTenSales == true">Top 10 Sales Person</p>
@@ -296,7 +342,7 @@
                 </table>
             </div>
         </div> -->
-        <!-- <div class="pie-chart">
+                <!-- <div class="pie-chart">
             <div class="chart-header">
                 <p>Top 10</p>
                 <div class="sm-tab">
@@ -322,10 +368,10 @@
         </fusioncharts>
     </div>
     </div> -->
-</div>
-<div class="col s6">
+            </div>
+            <div class="col s6">
 
-    <!-- <div class="pie-chart">
+                <!-- <div class="pie-chart">
         <div class="chart-header">
             <p *ngIf="bottomTenDSR == true">Bottom 10 DSR's</p>
             <p *ngIf="bottomTenSales == true">Bottom 10 Sales Person</p>
@@ -379,7 +425,7 @@
     </div> -->
 
 
-    <!-- <div class="pie-chart">
+                <!-- <div class="pie-chart">
         <div class="chart-header">
             <p>Bottom 10</p>
             <div class="sm-tab">
@@ -405,12 +451,12 @@
     </fusioncharts>
 </div>
     </div> -->
-</div>
-</div>
+            </div>
+        </div>
 
 
-<div class="row mb15">
-    <!-- <div class="col s6">
+        <div class="row mb15">
+            <!-- <div class="col s6">
         <div class="pie-chart">
             <div class="chart-header">
                 <p>Offer Balance Day's</p>
@@ -445,8 +491,8 @@
             </div>
         </div>
     </div> -->
-    
-    <!-- <div class="col s4  ">
+
+            <!-- <div class="col s4  ">
         <div class="pie-chart">
             <div class="chart-header">
                 <p>Super 30 </p>
@@ -500,23 +546,11 @@
             </div>
         </div>
     </div> -->
-    
 
-    <div class="col s6">
-        <div class="pie-chart">
-            <div class="chart-header">
-                <p>State Wise Coupon Scan</p>
-            </div>
-            <div class="graph">
-                <fusioncharts
-                width="100%"
-                height="300"
-                type="pie3d"
-                [dataSource]=coupon_Source >
-            </fusioncharts>
-        </div>
-    </div>
-<!--     
+
+           
+
+                <!--     
     <div class="col s6">
         <div class="pie-chart">
             <div class="chart-header">
@@ -545,8 +579,8 @@
     </div>
     </div>
 </div> -->
-</div>
-<!-- <div class="row mb15">
+          
+            <!-- <div class="row mb15">
     <div class="col s12">
         <div class="pie-chart">
             <div class="chart-header">
@@ -563,5 +597,5 @@
     </div>
 </div>
 </div> -->
-</div>
-</div>
+        </div>
+    </div>
