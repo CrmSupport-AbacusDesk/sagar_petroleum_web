@@ -23,6 +23,7 @@ export class KarigarAddComponent implements OnInit {
     date1:any;
 
     filter: any={};
+    citys:any =[]
     
     
     constructor(public db: DatabaseService, private route: ActivatedRoute, private router: Router, public ses: SessionStorage,public matDialog: MatDialog,  public dialog: DialogComponent) { this.date1 = new Date();}
@@ -78,56 +79,120 @@ export class KarigarAddComponent implements OnInit {
             this.type_list = resp.types;
         })
     }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    per_states: any = [];
     getStateList(){
         this.loading_list = true;
-        this.db.get_rqst('', 'app_master/getStates')
-        .subscribe(d => {  
+        this.db.post_rqst({}, 'master/getLocationStates')
+        .subscribe(d => { 
             this.loading_list = false;  
-            this.states = d.states;
+            this.states = d.locationStates;
+            this.per_states = d.locationStates;
         });
     }
-    getDistrictList(val){
+    
+    
+    getDistrictList(value){
         this.loading_list = true;
         let st_name;
-        if(val == 1)
+        if(value == 1)
         {
             st_name = this.karigarform.state;
         }
-        this.db.post_rqst({'state_name':st_name}, 'app_master/getDistrict')
-        .subscribe(d => {  
-            this.loading_list = false;
-            this.districts = d.districts;  
+        this.db.post_rqst({'state_name':st_name}, 'master/getLocationDistricts')
+        .subscribe(d => { 
+            
+            this.loading_list = false;  
+            this.districts = d.locationDistricts;
         });
     }
-    getCityList(val){   
+    
+    getCityList(value){
         this.loading_list = true;
         let dist_name;
-        if(val == 1)
+        if(value == 1)
         {
             dist_name = this.karigarform.district;
         }
-        this.db.post_rqst({'district_name':dist_name}, 'app_master/getCity')
-        .subscribe(d => {  
-            this.loading_list = false;
-            this.cities = d.cities;
-            this.pincode = d.pins;
+        
+        this.db.post_rqst({'district_name':dist_name}, 'master/getLocationCitys')
+        .subscribe(d => { 
+            
+            this.loading_list = false;  
+            this.citys = d.locationCitys;
+            
         });
     }
-    pincode:any = [];
-    getPincodeList(val){   
-        this.loading_list = true;
-        let pincode_name;
-        if(val == 1)
-        {
-            pincode_name = this.karigarform.pincode;
-        }
-        this.db.post_rqst({'city_name':pincode_name}, 'app_master/getPincodes')
-        .subscribe(d => {  
-            this.loading_list = false;
-            this.pincode = d.pins;
-        });
-    }
+
+
+
+
+
+
+
+
+    
+    // getStateList(){
+    //     this.loading_list = true;
+    //     this.db.get_rqst('', 'app_master/getStates')
+    //     .subscribe(d => {  
+    //         this.loading_list = false;  
+    //         this.states = d.states;
+    //     });
+    // }
+    // getDistrictList(val){
+    //     this.loading_list = true;
+    //     let st_name;
+    //     if(val == 1)
+    //     {
+    //         st_name = this.karigarform.state;
+    //     }
+    //     this.db.post_rqst({'state_name':st_name}, 'app_master/getDistrict')
+    //     .subscribe(d => {  
+    //         this.loading_list = false;
+    //         this.districts = d.districts;  
+    //     });
+    // }
+    // getCityList(val){   
+    //     this.loading_list = true;
+    //     let dist_name;
+    //     if(val == 1)
+    //     {
+    //         dist_name = this.karigarform.district;
+    //     }
+    //     this.db.post_rqst({'district_name':dist_name}, 'app_master/getCity')
+    //     .subscribe(d => {  
+    //         this.loading_list = false;
+    //         this.cities = d.cities;
+    //         this.pincode = d.pins;
+    //     });
+    // }
+    // pincode:any = [];
+    // getPincodeList(val){   
+    //     this.loading_list = true;
+    //     let pincode_name;
+    //     if(val == 1)
+    //     {
+    //         pincode_name = this.karigarform.pincode;
+    //     }
+    //     this.db.post_rqst({'city_name':pincode_name}, 'app_master/getPincodes')
+    //     .subscribe(d => {  
+    //         this.loading_list = false;
+    //         this.pincode = d.pins;
+    //     });
+    // }
 
 
 

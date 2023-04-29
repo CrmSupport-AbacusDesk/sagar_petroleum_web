@@ -465,13 +465,13 @@ export class DashboardComponent implements OnInit {
                 
                 for (let i=0;i < this.sixMonthStateWiseScannedCoupon.length; i++)
                 {
-                    this.six_state_coupon_wise.push({"label": this.sixMonthStateWiseScannedCoupon[i].state,"value": this.sixMonthStateWiseScannedCoupon[i].scanned_coupon});
+                    this.six_state_coupon_wise.push({"label": this.sixMonthStateWiseScannedCoupon[i].month,"value": this.sixMonthStateWiseScannedCoupon[i].scanned_coupon});
                 }
                 console.log(this.six_state_coupon_wise);
                 
                 this.scan_coupon_Source = {
                     "chart": {
-                        "xAxisName": "state",
+                        "xAxisName": "Month",
                         "yAxisName": "Coupon Scan",
                         // "numberSuffix": "k",
                         "theme": "fusion",

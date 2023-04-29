@@ -191,90 +191,58 @@
                             <div class="col s8 ">
                                 <div class="option-field">
                                     <div class="row mb0">
-                                        <div class="col s6" *ngIf="karigarform.country_id != 99">
+                                        <div class="col s6">
                                             <div class="control-field">
-                                                <div>
-                                                    <mat-form-field class="cs-input cs-multi-select">
-                                                        <mat-select placeholder="Select State" name="state"
-                                                            (selectionChange)="getDistrictList(1)"
-                                                            [(ngModel)]="karigarform.state" #state="ngModel" required>
-                                                            <mat-option *ngFor="let val of states"
-                                                                [value]="val.state_name"> {{val.state_name}}
-                                                            </mat-option>
-                                                        </mat-select>
-                                                    </mat-form-field>
-                                                </div>
+                                                <mat-form-field class="cs-input">
+                                        
+                                                    <mat-select placeholder="State" [(ngModel)]="karigarform.state" name="state" #state="ngModel" (selectionChange)="getDistrictList(1)" required>
+                                                        <!-- <mat-option >
+                                                            <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getStateList($event.target.value)"></ngx-mat-select-search>
+                                                        </mat-option> -->
+                                                        <mat-option [value]="row.state_name" *ngFor="let row of states">{{row.state_name}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>  
                                             </div>
                                         </div>
-                                        <div class="col s6" *ngIf="karigarform.country_id == 99">
+                                        <div class="col s6">
                                             <div class="control-field">
-                                                <div>
-                                                    <mat-form-field class=" cs-input cs-multi-select">
-                                                        <mat-select placeholder="Select State" name="state"
-                                                            (selectionChange)="getDistrictList(1)"
-                                                            [(ngModel)]="karigarform.state" #state="ngModel" required>
-                                                            <mat-option *ngFor="let val of states"
-                                                                [value]="val.state_name"> {{val.state_name}}
-                                                            </mat-option>
-                                                        </mat-select>
-                                                    </mat-form-field>
-                                                </div>
+                                                <mat-form-field class="cs-input">
+                                                    <mat-select placeholder="District" [(ngModel)]="karigarform.district" name="district" #district="ngModel" (selectionChange)="getCityList(1); getDealerList('', 1);" required>
+                                                        <!-- <mat-option >
+                                                            <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getDistrictList($event.target.value)"></ngx-mat-select-search>
+                                                        </mat-option> -->
+                                                        <mat-option [value]="row.district_name" *ngFor="let row of districts">{{row.district_name}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>   
                                             </div>
                                         </div>
 
-                                        <div class="col s6 ">
-                                            <div class="control-field">
-                                                <div *ngIf="karigarform.country_id != 99">
-                                                    <mat-form-field class="cs-input cs-multi-select">
-                                                        <mat-select placeholder="Select District" name="district"
-                                                            (selectionChange)="getCityList(1)"
-                                                            [(ngModel)]="karigarform.district" #district="ngModel"
-                                                            required>
-                                                            <mat-option *ngFor="let val of districts"
-                                                                [value]="val.district_name"> {{val.district_name}}
-                                                            </mat-option>
-                                                        </mat-select>
-                                                    </mat-form-field>
-                                                </div>
-                                                <div *ngIf="karigarform.country_id == 99">
-                                                    <mat-form-field class=" cs-input cs-multi-select">
-                                                        <mat-select placeholder="Select District" name="district"
-                                                            (selectionChange)="getCityList(1)"
-                                                            [(ngModel)]="karigarform.district" #district="ngModel"
-                                                            required>
-                                                            <mat-option *ngFor="let val of districts"
-                                                                [value]="val.district_name"> {{val.district_name}}
-                                                            </mat-option>
-                                                        </mat-select>
-                                                    </mat-form-field>
-                                                </div>
-                                            </div>
-                                        </div>
+                                     
+                                        
                                     </div>
                                     <div class="row">
+
+
                                         <div class="col s6">
                                             <div class="control-field">
-                                                <div>
-                                                    <mat-form-field class="cs-input ">
-                                                        <input matInput placeholder="City" name="city"
-                                                            [(ngModel)]="karigarform.city" #city="ngModel" required>
-                                                    </mat-form-field>
-                                                </div>
+                                                <mat-form-field class="cs-input">
+                                        
+                                                    <mat-select placeholder="City" [(ngModel)]="karigarform.city" name="city" #city="ngModel"  required (selectionChange)="getZoneList(karigarform.city)">
+                                                        <mat-option [value]="row.city_name" *ngFor="let row of citys">{{row.city_name}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field> 
                                             </div>
                                         </div>
                                         <div class="col s6">
                                             <div class="control-field">
                                                 <div>
                                                     <mat-form-field class=" cs-input ">
-                                                        <input matInput placeholder="Pincode"
-                                                            (keypress)="numeric_Number($event)" maxlength="6"
-                                                            minlength="6" name="pincode"
-                                                            [(ngModel)]="karigarform.pincode" #pincode="ngModel"
-                                                            >
+                                                        <input matInput placeholder = "Pincode" (keypress)="numeric_Number($event)" maxlength="6" minlength="6" name = "pincode"  [(ngModel)] = "karigarform.pincode" #pincode = "ngModel" required>
                                                     </mat-form-field>
                                                 </div>
                                             </div>
                                         </div>
+                                       
                                     </div>
                                 </div>
                             </div>

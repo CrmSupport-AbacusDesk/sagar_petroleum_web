@@ -131,6 +131,9 @@ import { AddCouponPointsComponent } from './add-coupon-points/add-coupon-points.
 import { CouponCodeMasterComponent } from './coupon-code-master/coupon-code-master.component';
 import { MechanicChangeStatusComponent } from './mechanic-change-status/mechanic-change-status.component';
 import { AssignCouponCodeComponent } from './assign-coupon-code/assign-coupon-code.component';
+import { LocationMasterComponent } from './location-master copy/location-master.component';
+import { LoactionCsvComponent } from './loaction-csv/loaction-csv.component';
+
 
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
@@ -143,6 +146,12 @@ const routes: Routes = [
   {path: 'add-gift', component:AddgiftComponent , canActivate: [AuthGuard] },
   {path: 'add-gift/:id', component:AddgiftComponent , canActivate: [AuthGuard] },
   {path: 'gifts', component:GiftsComponent , canActivate: [AuthGuard] },
+
+
+  {path: 'location', component:LocationMasterComponent , canActivate: [AuthGuard] },
+
+  
+
   {path: 'edit-offer/:offer_id', component:EditOfferComponent , canActivate: [AuthGuard] },
   {path: 'offer-detail/:offer_id', component:OfferDetailComponent , canActivate: [AuthGuard] },
   {path: 'gift-list', component:GiftListComponent , canActivate: [AuthGuard] },
@@ -226,6 +235,7 @@ const routes: Routes = [
     OfferDetailComponent,
     GiftRedeemModuleComponent,
     ProductImageModuleComponent,
+    LoactionCsvComponent,
     TransferCodeComponent,
     GiftListComponent,
     GiftDetailComponent,
@@ -293,6 +303,7 @@ const routes: Routes = [
     AssignRelatedProductsComponent,
     AddgiftComponent,
     GiftsComponent,
+    LocationMasterComponent,
     AddCouponCodesComponent,
     VisitorComponent,
     SubcategoryListComponent,
@@ -317,7 +328,9 @@ const routes: Routes = [
     SurveyEditModalComponent,
     CouponCodeMasterComponent,
     DealeruploadComponent,
-    MechanicChangeStatusComponent
+    MechanicChangeStatusComponent,
+   
+  
   ],
   imports: [
     HttpClientModule,
@@ -389,7 +402,8 @@ const routes: Routes = [
     DealeruploadComponent,
     SurveyEditModalComponent,
     MechanicChangeStatusComponent,
-    AddCouponPointsComponent
+    AddCouponPointsComponent,
+    LoactionCsvComponent
   ],
   
   exports: [

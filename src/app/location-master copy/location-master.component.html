@@ -1,0 +1,445 @@
+<div class="loader" *ngIf="loading_list">
+  <div class="loding-logo">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+
+<div class="main-container ">
+  <div class="fixed">
+    <div class="middle-container">
+      <div class="tabs-list">
+        <h1>Master</h1>
+        <!-- <div class="input-field">
+          <input type="text" placeholder="Search..." [(ngModel)]="filter.search"
+          (keyup.enter)="current_page = 1;getProductList('')">
+          <i class="material-icons">
+            search
+          </i>
+        </div> -->
+      </div>
+      <div class="refresh-btn">
+        <a mat-button matTooltip="Refresh" matTooltipPosition="below" (click)="getLocationList('refresh')"><i
+          class="material-icons">refresh</i></a>
+        </div>
+        <div class="top-pagination">
+          <ul>
+            <li>
+              <p>Pages {{ current_page }} of {{ last_page }}</p>
+            </li>
+            
+            <li><button mat-button class="left-btn" (click)='redirect_previous()'><i
+              class="material-icons">keyboard_arrow_left</i></button></li>
+              <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page"></li>
+              <li><button mat-button class="right-btn" (click)='redirect_next()'><i
+                class="material-icons">keyboard_arrow_right</i></button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="container-outer tab-container">
+          <app-master-tab></app-master-tab>
+          <div class="row">
+            <div class="css-table left-right-15">
+              <div class="sticky-header">
+                <div class="header">
+                  <table>
+                    <tr>
+                      <th class="w50"></th>
+                      <th class="w120">Date Created</th>
+                      <th class="w140">State Name</th>
+                      <!-- <th class="w100">Sate Code</th> -->
+                      <th class="w140">District Name</th>
+                      <!-- <th class="w100">District Code</th> -->
+                      <th class="w140">City Name</th>
+                      <!-- <th class="w100">City Code</th> -->
+                      <!-- <th>Zone</th> -->
+                      <th class="w70">Action</th>
+
+                    </tr>
+                  </table>
+                </div>
+                
+                <div class="header border-bott">
+                  <table>
+                    
+                    <tr>
+                      <th class="w50"></th>
+                      <th class="w120">
+                        <div class="date-form">
+                          <i *ngIf="filter.date" class="material-icons"
+                          (click)="filter.date = '';getLocationList('') ">clear</i>
+                          <mat-form-field>
+                            <input placeholder="Date" [(ngModel)]="filter.date"
+                            (click)="openDatePicker(picker)" name="date" matInput
+                            (dateChange)="getLocationList('')" [matDatepicker]="picker" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </th>
+                      <th class="w140">
+                        <div class="form-area">
+                          <div class="slect">
+                            <mat-form-field>
+                              <mat-select [(ngModel)]="filter.state_name" name="state_name" #state_name="ngModel"
+                              (selectionChange)="getLocationList('')">
+                              <mat-option >
+                                <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getStateList($event.target.value)"></ngx-mat-select-search>
+                              </mat-option>
+                              <mat-option value="">All</mat-option>
+                              <mat-option [value]="row.state_name" *ngFor="let row of states">{{row.state_name}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </th>
+                    <!-- <th class="w100">
+                      <div class="form-area">
+                        <div class="slect mr0">
+                          <mat-form-field>
+                            <mat-select [(ngModel)]="filter.state_code" name="state_code" #state_code="ngModel"
+                            (selectionChange)="getLocationList('')">
+                            <mat-option >
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getStateCode($event.target.value)"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option value="">All</mat-option>
+                            
+                            <mat-option [value]="row.state_code" *ngFor="let row of statesCode">{{row.state_code}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </th> -->
+                  <th class="w140">
+                    <div class="form-area">
+                      <div class="slect mr0">
+                        <mat-form-field>
+                          <mat-select [(ngModel)]="filter.district_name" name="district_name" #district_name="ngModel"
+                          (selectionChange)="getLocationList('')">
+                          <mat-option >
+                            <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getDistrictList($event.target.value)"></ngx-mat-select-search>
+                          </mat-option>
+                          <mat-option value="">All</mat-option>
+                          <mat-option [value]="row.district_name" *ngFor="let row of districts">{{row.district_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </th>
+                <!-- <th class="w100">
+                  <div class="form-area">
+                    <div class="slect mr0">
+                      <mat-form-field>
+                        <mat-select [(ngModel)]="filter.district_code" name="district_code" #district_code="ngModel"
+                        (selectionChange)="getLocationList('')">
+                        <mat-option >
+                          <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getDistrictListCode($event.target.value)"></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option value="">All</mat-option>
+                        <mat-option [value]="row.district_code" *ngFor="let row of districtCodes">{{row.district_code}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </th> -->
+              <th class="w140">
+                <div class="form-area">
+                  <div class="slect mr0">
+                    <mat-form-field>
+                      <mat-select [(ngModel)]="filter.city_name" name="city_name" #city_name="ngModel"
+                      (selectionChange)="getLocationList('')">
+                      <mat-option >
+                        <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getCityList($event.target.value)"></ngx-mat-select-search>
+                      </mat-option>
+                      <mat-option value="">All</mat-option>
+                      <mat-option [value]="row.city_name" *ngFor="let row of citys">{{row.city_name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </th>
+            <!-- <th class="w100">
+              <div class="form-area">
+                <div class="slect mr0">
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="filter.city_code" name="city_code" #city_code="ngModel"
+                    (selectionChange)="getLocationList('')">
+                    <mat-option >
+                      <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.."  (keyup)="getCityListCode($event.target.value)"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option value="">All</mat-option>
+                    <mat-option [value]="row.city_code" *ngFor="let row of cityCodes">{{row.city_code}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </th> -->
+          <!-- <th>
+            <div class="form-area">
+              <div class="slect mr0">
+                <mat-form-field>
+                  <mat-select [(ngModel)]="filter.zone" name="zone" #zone="ngModel"
+                  (selectionChange)="getLocationList('')">
+                  <mat-option >
+                    <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getZoneList($event.target.value)"></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option value="">All</mat-option>
+                  <mat-option [value]="row.zone" *ngFor="let row of zoneData">{{row.zone}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </th> -->
+        <th class="w70"></th>
+
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="table-container">
+  <div class="table-body">
+    <table>
+      
+      <tr *ngFor="let val of loacatinData; let i = index">
+        <td class="w50">
+          {{ i + 1 + sr_no }}
+        </td>
+        <td class="w120">
+          <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' ">
+            {{val.date_created | date: 'dd MMM yyyy'}} <strong>
+              {{val.created_name}}</strong>
+            </ng-container>
+          </td>
+          <td class="w140">{{val.state_name}}</td>
+          <!-- <td class="w100">{{val.state_code}}</td> -->
+          <td class="w140">{{val.district_name}}</td>
+          <!-- <td class="w100">{{val.district_code}}</td> -->
+          <td class="w140">{{val.city_name}}</td>
+          <!-- <td class="w100">{{val.city_code}}</td> -->
+          <!-- <td>{{val.zone}}</td> -->
+          <td class="w70">
+            <div class="td-flex">
+              <button class="right" (click)="toggle = !toggle; editProduct(val.id,i)"><i
+                    class="material-icons">edit</i></button>
+                    <!-- <button class="cancel" (click)="deleteProduct(val.id, val.product_id)"><i
+                        class="material-icons">delete_sweep</i></button>-->
+                    </div> 
+                </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div style="height: 60px;"></div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="side-main" [ngClass]="{'on' : toggle == true}">
+  <div class="category-field" [ngClass]="{'active' : toggle == true}">
+    <form name="locationForm" (ngSubmit)="f.form.valid && saveLoaction() " #f="ngForm" novalidate autocomplete="off">
+      <div class="category-hadding">
+        <h2>{{isEditCalled ? 'Edit Location' : 'Add Location'}}</h2>
+        <i class="material-icons" (click)="toggle = !toggle;">clear</i>
+      </div>
+      <div class="add-image">
+        <div class="sco-12">
+          <div class="scrol-13">
+            <!-- <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="State Name" name="state_name"
+                  [(ngModel)]="locationForm.state_name" #state_name="ngModel" required>
+                </mat-form-field>
+              </div>
+            </div> -->
+
+            <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input" >
+                  <mat-select placeholder="Search State"   name="state_name" [(ngModel)]="locationForm.state_name" (ngModelChange)="getStateCode_edit(locationForm.state_name)" required>
+                    <mat-option >
+                      <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search..."  (input)="getStateList($event.target.value)"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option value="0"><small>N/A</small></mat-option>
+                    
+                    <mat-option [value]="row.state_name"  *ngFor="let row of states"><small> {{row.state_name}}</small>
+                    </mat-option>
+                  </mat-select>
+                  <ng-container *ngIf="(state_name.invalid && state_name.touched) || (f.submitted && state_name.invalid)">                                 
+                    <mat-hint *ngIf="state_name.errors.required">required</mat-hint>
+                </ng-container>
+                </mat-form-field>
+              </div>
+            </div>
+
+
+
+            
+            <!-- <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="State Code" name="state_code"
+                  [(ngModel)]="locationForm.state_code" #state_code="ngModel" readonly required>
+                </mat-form-field>
+              </div>
+            </div> -->
+            
+            <!-- <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="District Name" name="district_name"
+                  [(ngModel)]="locationForm.district_name" #district_name="ngModel" required>
+                </mat-form-field>
+              </div>
+            </div> -->
+
+
+            <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input" >
+                  <mat-select placeholder="Search District"   name="district_name" [(ngModel)]="locationForm.district_name" (ngModelChange)="getDistrictListCode_edit(locationForm.district_name)" required>
+                    <mat-option >
+                      <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search..." (input)="getDistrictList($event.target.value)"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option value="0"><small>N/A</small></mat-option>
+                    
+                    <mat-option [value]="row.district_name"  *ngFor="let row of districts"><small> {{row.district_name}}</small>
+                    </mat-option>
+                  </mat-select>
+                  <ng-container *ngIf="(district_name.invalid && district_name.touched) || (f.submitted && district_name.invalid)">                                 
+                    <mat-hint *ngIf="district_name.errors.required">required</mat-hint>
+                </ng-container>
+                </mat-form-field>
+              </div>
+            </div>
+            
+
+
+            <!-- <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="District Code" name="district_code"
+                  [(ngModel)]="locationForm.district_code" #district_code="ngModel" readonly required>
+                </mat-form-field>
+              </div>
+            </div> -->
+            
+            <!-- <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="City Name" name="city_name"
+                  [(ngModel)]="locationForm.city_name" #city_name="ngModel" required>
+                </mat-form-field>
+              </div>
+            </div> -->
+
+
+            <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input" >
+                  <mat-select placeholder="Search City"   name="city_name" [(ngModel)]="locationForm.city_name" (ngModelChange)="getCityListCode_edit(locationForm.city_name)" required>
+                    <mat-option >
+                      <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search..." (input)="getCityList($event.target.value)"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option value="0"><small>N/A</small></mat-option>
+                    
+                    <mat-option [value]="row.city_name"  *ngFor="let row of citys"><small> {{row.city_name}}</small>
+                    </mat-option>
+                  </mat-select>
+                  <ng-container *ngIf="(city_name.invalid && city_name.touched) || (f.submitted && city_name.invalid)">                                 
+                    <mat-hint *ngIf="city_name.errors.required">required</mat-hint>
+                </ng-container>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="City Code" name="city_code"
+                  [(ngModel)]="locationForm.city_code" #city_code="ngModel"  readonly required>
+                </mat-form-field>
+              </div>
+            </div> -->
+            
+            <!-- <div class="option-field">
+              <div class="control-field">
+                <mat-form-field>
+                  <input matInput placeholder="Zone" name="zone"
+                  [(ngModel)]="locationForm.zone" #zone="ngModel" required>
+                </mat-form-field>
+              </div>
+            </div> -->
+
+
+            <!-- <div class="option-field">
+              <div class="control-field">
+                  <mat-form-field  class="cs-input">
+                      <mat-select placeholder="Select Zone" name="zone"  [(ngModel)]="locationForm.zone" #zone="ngModel"  required>
+                          <mat-option *ngFor="let val of zoneData" [value]="val.zone" > {{val.zone}} </mat-option>
+                      </mat-select> -->
+                      <!-- <ng-container *ngIf="(zone.invalid && zone.touched) || (f.submitted && zone.invalid)">                                 
+                          <mat-hint *ngIf="zone.errors.required">required</mat-hint>
+                      </ng-container> -->
+                  <!-- </mat-form-field>
+              </div>
+              
+          </div> -->
+          
+
+         
+
+
+
+          <!-- <div class="option-field">
+            <div class="control-field">
+              <mat-form-field class="cs-input" >
+                <mat-select placeholder="Search Zone"   name="zone" [(ngModel)]="locationForm.zone" required>
+                  <mat-option >
+                    <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search..." (input)="getZoneList($event.target.value)"></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option value="0"><small>N/A</small></mat-option>
+                  
+                  <mat-option [value]="row.zone"  *ngFor="let row of zoneData"><small> {{row.zone}}</small>
+                  </mat-option>
+                </mat-select>
+                <ng-container *ngIf="(zone.invalid && zone.touched) || (f.submitted && zone.invalid)">                                 
+                  <mat-hint *ngIf="zone.errors.required">required</mat-hint>
+              </ng-container>
+              </mat-form-field>
+            </div>
+          </div> -->
+          </div>
+        </div>
+        
+        <div class="save btn-save mt90" [ngClass]="{loading: savingData}">
+          <button mat-button [disabled]="savingData">
+            
+            <mat-icon class="wt-load" *ngIf="savingData">
+              <mat-spinner color="primary" diameter="30"></mat-spinner>
+            </mat-icon>
+            
+            <span *ngIf="!savingData">{{isEditCalled ? 'Update': 'Save'}}</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="side-bg" (click)="toggle = !toggle"></div>
+</div>
+
+
+<div class="fab-btns">
+  <button (click)="openDialog()" mat-raised-button color="accent" style="color: #fff;">
+    <i class="material-icons ">cloud_upload</i>
+    Import .Csv File
+  </button>
+  
+  
+  <button (click)="exportLocation()" mat-fab class="excel">
+    <img src="assets/excel.svg">
+  </button>
+  
+</div>
