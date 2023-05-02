@@ -75,8 +75,20 @@
                                             </figure>
 
                                         </li>
+                                        <li>
+                                            <figure>
+                                                <div class="left-img">
+                                                    <img src="assets/qr-code.svg">
+                                                </div>
+                                                <div class="right-cont">
+                                                    <p>Referral Code</p>
+                                                    <span>{{!getData.referral_code ? 'N/A' : getData.referral_code |
+                                                        uppercase}}</span>
+                                                </div>
+                                            </figure>
+                                        </li>
                                     </ul>
-                                    <ul>
+                                    <ul *ngIf="this.access_level ==1">
 
                                         <li>
                                             <p>Status</p>
@@ -99,22 +111,11 @@
                                             <span>{{getData.status_update_date | date : 'dd MMM yyyy' }}</span>
                                         </li>
 
-                                        <li>
-                                            <figure>
-                                                <div class="left-img">
-                                                    <img src="assets/qr-code.svg">
-                                                </div>
-                                                <div class="right-cont">
-                                                    <p>Referral Code</p>
-                                                    <span>{{!getData.referral_code ? 'N/A' : getData.referral_code |
-                                                        uppercase}}</span>
-                                                </div>
-                                            </figure>
-                                        </li>
+                                       
                                     </ul>
 
 
-                                    <ul>
+                                    <ul *ngIf="this.access_level ==1">
                                         <li>
                                             <p>Kyc Status</p>
                                             <div class="center">
@@ -130,12 +131,12 @@
                                         </li>
 
                                         <li>
-                                            <p>Kyc Status {{getData.kyc_status}} Date</p>
+                                            <p>Kyc Status Update Date </p>
                                             <span>{{getData.kyc_status_update_date | date : 'dd MMM yyyy' }}</span>
                                         </li>
 
                                         <li *ngIf="getData.kyc_status == 'Reject'">
-                                            <p>Kyc Status Reason</p>
+                                            <p>Kyc Status Reject Reason</p>
                                             <span>{{getData.kyc_status_reason ? getData.kyc_status_reason : 'N/A'}}</span>
                                         </li>
 
