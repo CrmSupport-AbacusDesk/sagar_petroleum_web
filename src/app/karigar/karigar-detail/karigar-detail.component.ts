@@ -13,6 +13,7 @@ import { ReedemCouponSummaryComponent } from '../reedem-coupon-summary/reedem-co
 import { ReopenRemarkModleComponent } from 'src/app/offer/reopen-remark-modle/reopen-remark-modle.component';
 import { BonusPointModelComponent } from '../bonus-point-model/bonus-point-model.component';
 import { MechanicChangeStatusComponent } from 'src/app/mechanic-change-status/mechanic-change-status.component';
+import { MastetDateFilterModelComponent } from 'src/app/mastet-date-filter-model/mastet-date-filter-model.component';
 // import { log } from 'console';
 @Component({
     selector: 'app-karigar-detail',
@@ -409,6 +410,26 @@ export class KarigarDetailComponent implements OnInit {
             this.getKarigarDetails();
             this.getScannedList();
             this.get_points_summry();
+        });
+    }
+
+
+
+
+    openDatepicker(): void {
+        const dialogRef = this.alrt.open(MastetDateFilterModelComponent, {
+            width: '500px',
+            data: {
+                from:this.filter.date_from,
+                to:this.filter.date_to,
+              
+            }
+        });
+        
+        dialogRef.afterClosed().subscribe(result => {
+            this.filter.date_from = result.from;
+            this.filter.date_to = result.to;
+            this.getScannedList();
         });
     }
 }

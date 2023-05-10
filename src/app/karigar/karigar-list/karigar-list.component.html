@@ -91,6 +91,8 @@
                             <td class="w30 text-center"><mat-checkbox name="select_all" [(ngModel)]="select_all" (change)="select_all_data()"></mat-checkbox></td>
                             <th class="w30">&nbsp;</th>
                             <th class="w150">Date</th>
+                            <th class="w150">Mechanic Code</th>
+                            <th class="w135">Head Mechanic</th>
                             <th class="w135">Mechanic Type</th>
                             <th>Name</th>
                             <th class="w100">Mobile</th>
@@ -99,7 +101,7 @@
 
                             <th class="w135">City</th>
                            
-                            <th class="w135">Head Mechanic</th>
+                          
 
 
                             <!-- <th class="w150">Dealer</th>
@@ -108,7 +110,7 @@
                             <!-- <th class="w70 text-center">Requests</th> -->
                             <!-- <th class="w100 text-center">DSR's</th>
                             <th class="w100 text-center">Sales User Name</th> -->
-                            <th class="w120 text-center" *ngIf="this.access_level ==1">Status</th>
+                            <th class="w120 text-center">Status</th>
                         </tr>
                     </table>
                 </div>
@@ -118,7 +120,21 @@
                         <tr>
                             <th class="w30">&nbsp;</th>
                             <th class="w30">&nbsp;</th>
-                            <th class="w150"></th>   
+                            <th class="w150"></th>  
+                            <th class="w150">
+
+                                <div class="search-form">
+                                    <input type="text" placeholder="search" [(ngModel)]="filter.machanic_code"  (keyup.enter)="current_page = 1;getKarigarList('')">
+                                    <i class="material-icons">search</i>
+                                </div>
+
+                            </th>   
+                            <th class="w135">
+                                <div class="search-form">
+                                    <input type="text" placeholder="search" [(ngModel)]="filter.head_machanic_name"  (keyup.enter)="current_page = 1;getKarigarList('')">
+                                    <i class="material-icons">search</i>
+                                </div>
+                            </th>
                             
                             <th class="w135">
                                 <!-- <div class="search-form">
@@ -177,12 +193,7 @@
 
                          
 
-                            <th class="w135">
-                                <div class="search-form">
-                                    <input type="text" placeholder="search" [(ngModel)]="filter.head_machanic_name"  (keyup.enter)="current_page = 1;getKarigarList('')">
-                                    <i class="material-icons">search</i>
-                                </div>
-                            </th>
+                          
 
 
                             <!-- <th class="w150">
@@ -197,7 +208,7 @@
                             <!-- <th class="w70"></th> -->
                             <!-- <th class="w100"></th>
                             <th class="w100"></th> -->
-                            <th class="w120" *ngIf="this.access_level ==1"></th>
+                            <th class="w120" ></th>
                         </tr>
                     </table>
                 </div>
@@ -224,6 +235,18 @@
                                 {{val.created_by}}
                             </ng-container>  -->
                         </td>
+
+
+                        <td class="w150">
+                            <div class="over-sec-edit" >
+                                <i class="material-icons deactive" style="color:green" (click)="Editreason(val.id,val.machanic_code)">edit</i>
+                            </div>
+                            {{val.machanic_code | titlecase}}</td>
+
+
+
+                        <td class="w135">{{val.head_machanic_name | titlecase }}/{{val.head_machanic_mobile_no}}</td>
+
                         <!-- <td class="w150"> -->
                             <!-- <ng-container *ngIf="val.created_by  == '' " > 
                                 {{val.date_created | date: 'dd MMM yyyy'}} / Self
@@ -236,7 +259,7 @@
                         <td class="w135">{{val.district | titlecase }}</td>
                         <td class="w135">{{val.city | titlecase }}</td>
                     
-                        <td class="w135">{{val.head_machanic_name | titlecase }}/{{val.head_machanic_mobile_no}}</td>
+                      
 
                         <!-- <td class="w150">{{val.parent_counter_name | titlecase }}</td>
                         <td class="w150">{{val.parent_counter_contact_person | titlecase }} - {{val.parent_counter_mobile}}</td> -->
@@ -248,7 +271,7 @@
                         <td class="w100">
                           {{val.sales_user_name}}
                         </td> -->
-                        <td class="w120 " *ngIf="this.access_level ==1">
+                        <td class="w120 " >
 
                         
                                 

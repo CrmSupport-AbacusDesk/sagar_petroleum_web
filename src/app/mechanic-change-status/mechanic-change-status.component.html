@@ -59,6 +59,25 @@
                   </mat-form-field>
                 </div>
         </div>
+
+
+        <div class="option-field" *ngIf="karigarform.status == 'Verified'">
+            <!-- <div class="control-field">
+                <mat-form-field  class="cs-input">
+                    <textarea matInput placeholder="Description" class="h106" name="desc" [(ngModel)] = "karigarform.desc" #desc="ngModel" ></textarea>
+                </mat-form-field>
+            </div> -->
+
+         
+
+
+            <div class="control-field">
+                <mat-form-field class="cs-input">
+                    <input matInput placeholder="Mechanic Code" name="machanic_code"
+                        [(ngModel)]="karigarform.machanic_code" #machanic_code="ngModel" >
+                </mat-form-field>
+            </div>
+        </div>
        
           
           <div class="save mt15" [ngClass]="{loading: savingData}">

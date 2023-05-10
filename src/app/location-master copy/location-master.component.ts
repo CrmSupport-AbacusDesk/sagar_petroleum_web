@@ -270,7 +270,7 @@ export class LocationMasterComponent implements OnInit {
         // if (this.products.id) {
         //   this.locationForm.edit_product_id = this.products.id;
         // }
-        this.db.post_rqst({'state_name':this.locationForm.state_name,'state_code':this.locationForm.state_code,'district_name':this.locationForm.district_name,'district_code':this.locationForm.district_code,'city_name':this.locationForm.city_name,'city_code':this.locationForm.city_code,'zone':this.locationForm.zone,'id':this.locationForm.id}, "master/addLocation")
+        this.db.post_rqst({'state_name':this.locationForm.state_name,'state_code':this.locationForm.state_code,'district_name':this.locationForm.district_name,'district_code':this.locationForm.district_code,'city_name':this.locationForm.city_name,'city_code':this.locationForm.city_code,'zone':this.locationForm.zone,'pin_code':this.locationForm.pin_code,'id':this.locationForm.id}, "master/addLocation")
         .subscribe((d) => {
           
           if (d["status"] == "EXIST") {
@@ -278,6 +278,32 @@ export class LocationMasterComponent implements OnInit {
             this.dialog.error("This Location Already exists");
             return;
           }
+
+
+          else if (d["status"] == "state_name_required") {
+            this.savingData = false;
+            this.dialog.error("State Name Required");
+            return;
+          }
+
+          else if (d["status"] == "district_name_required") {
+            this.savingData = false;
+            this.dialog.error("District Name Required");
+            return;
+          }
+
+          else if (d["status"] == "city_name_required") {
+            this.savingData = false;
+            this.dialog.error("City Name Required");
+            return;
+          }
+
+          else if (d["status"] == "pin_code_required") {
+            this.savingData = false;
+            this.dialog.error("Pincode Required");
+            return;
+          }
+
           else if(d["status"] == "SUCCESS"){
             this.savingData = false;
             this.locationForm = {};
@@ -319,6 +345,17 @@ export class LocationMasterComponent implements OnInit {
             
           });
         }
+
+
+
+        
+    numeric_Number(event: any) {
+      const pattern = /[0-9\+\-\ ]/;
+      let inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+          event.preventDefault();
+      }
+  }
         
       }
       

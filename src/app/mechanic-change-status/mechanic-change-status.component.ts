@@ -57,7 +57,7 @@ export class MechanicChangeStatusComponent implements OnInit {
         karigarstatus(form:any)
         {
             this.savingData = true;
-            this.db.post_rqst( { 'id': this.data.id,'status': this.karigarform.status,'machanic_type': this.karigarform.machanic_type,'head_mechanic_id':this.karigarform.head_machanic_id}, 'karigar/karigarStatus')
+            this.db.post_rqst( { 'id': this.data.id,'machanic_code': this.karigarform.machanic_code,'status': this.karigarform.status,'machanic_type': this.karigarform.machanic_type,'head_mechanic_id':this.karigarform.head_machanic_id}, 'karigar/karigarStatus')
             .subscribe( d => {
                 this.savingData = false;
                 this.dialog.success( 'Status successfully Change');
@@ -72,6 +72,15 @@ export class MechanicChangeStatusComponent implements OnInit {
             this.savingData = true;
             this.db.post_rqst( { 'id': this.data.id,  'kyc_status' : this.karigarform.kyc_status ,'karigar_id':this.data.karigar_id,'kyc_status_reason':this.karigarform.kyc_status_reason}, 'karigar/update_kyc_status')
             .subscribe( d => {
+
+
+                if(d['status'] == 'details_not_completed' ){
+                    this.dialog.error( 'Details Not Completed');
+                    return;
+                  }
+            
+
+
                 this.savingData = false;
                 this.dialog.success( 'Status successfully Change');
                 this.dialogRef.close(true);

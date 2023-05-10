@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DatabaseService } from '../_services/DatabaseService';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-coupon-points',
@@ -17,14 +18,33 @@ export class AddCouponPointsComponent implements OnInit {
   loading = false;
   couponsList: any = [];
   id:any;
+  karigar_pending:any={}
+  from:any;
+  // karigar_id;
   
-  constructor(public db: DatabaseService,public dialog: DialogComponent, public alrt:MatDialog,
+  constructor(public db: DatabaseService,public dialog: DialogComponent, public alrt:MatDialog, private route: ActivatedRoute, private router: Router, 
       public dialogRef: MatDialogRef<AddCouponPointsComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
         this.id = data["id"];
+        this.from=data['from']
+
+
+        if(data['status_remark']){
+          this.karigar_pending.remarks=data['status_remark']
+         }
+
+         
+       else if(data['machanic_code']){
+          this.karigar_pending.machanic_code=data['machanic_code']
+         }
+
+
         console.log('Karigar Id Is ->', this.id);
        }
 
   ngOnInit() {
+    // this.route.params.subscribe(params => {
+    //   this.karigar_id = params['karigar_id'];
+    // });
   }
 
   saveCoupon = ()  => {
@@ -47,6 +67,22 @@ export class AddCouponPointsComponent implements OnInit {
         this.dialogRef.close();
         this.loading = false;
     });
+  }
+
+
+
+
+  Update_reason(){
+    this.db.insert_rqst({'machanic_code':this.karigar_pending.machanic_code,'karigar_id':this.id,},'karigar/update_machanic_code').subscribe(result=>{
+      console.log(result)
+      if(result['status']=='SUCCESS'){
+      this.dialog.success('Update Successfully');
+      }
+
+      this.dialogRef.close();
+
+    })
+
   }
 
 }

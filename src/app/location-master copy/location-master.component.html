@@ -51,6 +51,7 @@
                       <th class="w140">District Name</th>
                       <!-- <th class="w100">District Code</th> -->
                       <th class="w140">City Name</th>
+                      <th class="w140">Pincode</th>
                       <!-- <th class="w100">City Code</th> -->
                       <!-- <th>Zone</th> -->
                       <th class="w70">Action</th>
@@ -158,6 +159,17 @@
                 </div>
               </div>
             </th>
+
+
+
+            <th class="w140">
+              <!-- <div class="search-form">
+                <input type="text" placeholder="Pincode" [(ngModel)]="filter.pincode"  (keyup.enter)="current_page = 1;getCityList('')">
+                <i class="material-icons">search</i>
+            </div> -->
+          </th>
+
+
             <!-- <th class="w100">
               <div class="form-area">
                 <div class="slect mr0">
@@ -215,6 +227,7 @@
           <td class="w140">{{val.district_name}}</td>
           <!-- <td class="w100">{{val.district_code}}</td> -->
           <td class="w140">{{val.city_name}}</td>
+          <td class="w140">{{val.pin_code}}</td>
           <!-- <td class="w100">{{val.city_code}}</td> -->
           <!-- <td>{{val.zone}}</td> -->
           <td class="w70">
@@ -354,6 +367,20 @@
                 </mat-form-field>
               </div>
             </div>
+
+
+
+ <div class="option-field">
+  <div class="control-field">
+    <div>
+        <mat-form-field class=" cs-input ">
+            <input matInput placeholder = "Pincode" (keypress)="numeric_Number($event)" maxlength="6" minlength="6" name = "pin_code"  [(ngModel)] = "locationForm.pin_code" #pin_code = "ngModel" required >
+        </mat-form-field>
+    </div>
+</div>
+            </div>
+
+
 
             <!-- <div class="option-field">
               <div class="control-field">

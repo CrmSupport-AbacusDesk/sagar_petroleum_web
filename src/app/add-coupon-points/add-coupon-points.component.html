@@ -1,4 +1,4 @@
-<div class="gift-box">
+<div class="gift-box" *ngIf="!from">
   
   <div class="zift-hadding">
     <p>Add points manually</p>
@@ -38,3 +38,38 @@
       </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="gift-box" *ngIf="from">
+    <div class="zift-hadding">
+      <p>Update Mechanic Code</p>
+      <div class="close-icon">
+        <button mat-button mat-dialog-close ><i class="material-icons">clear</i></button>
+      </div>
+    </div>
+      <div class="modal-body pt0">
+        <div class="row">
+            <div class="col s12">
+                <div class="option-field">
+                    <div class="control-field">
+                        <mat-form-field  class="cs-input">
+                            <textarea matInput placeholder="Mechanic Code" class="h150"  [(ngModel)]="karigar_pending.machanic_code" required ></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div mat-dialog-actions>
+            <button mat-raised-button color="primary" [disabled]="!karigar_pending.machanic_code" (click)="Update_reason()">Update</button>
+        </div>
+    </div>
+  </div>

@@ -11,6 +11,7 @@ import { ChangeStatusComponent } from 'src/app/gift-gallery/change-status/change
 import { AssignSlaesComponent } from 'src/app/assign-slaes/assign-slaes.component';
 import { MechanicChangeStatusComponent } from 'src/app/mechanic-change-status/mechanic-change-status.component';
 import { SessionStorage } from 'src/app/_services/SessionService';
+import { AddCouponPointsComponent } from 'src/app/add-coupon-points/add-coupon-points.component';
 
 
 @Component({
@@ -348,5 +349,29 @@ export class KarigarListComponent implements OnInit {
         });
     }
     
+
+
+
+
+    Editreason(id,machanic_code){
+        const dialogRef= this.alrt.open(AddCouponPointsComponent,{
+        width:'500px',
+        data:{
+        from:'karigar reason',
+        machanic_code:machanic_code,
+        id:id,
+       
+        }
+
+        })
+
+        dialogRef.afterClosed().subscribe(result=>{
+            this.getKarigarList('');
+
+        })
+
+    }
+
+
 }
 

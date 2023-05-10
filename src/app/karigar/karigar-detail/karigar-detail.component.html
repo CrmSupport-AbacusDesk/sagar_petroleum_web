@@ -20,7 +20,8 @@
 
                         <div class="detail-info pr0">
                             <div class="img-box">
-                                <div class="name-box point-sec" (click)="balanceModel(getData.id)">
+                                <!-- (click)="balanceModel(getData.id)" -->
+                                <div class="name-box point-sec" >
                                     <div class="points ">
                                         <a>{{total_wallet_points}}</a>
                                         <h4>Balance Points</h4>
@@ -175,6 +176,10 @@
                                             <span>{{getData.user_category ? getData.user_category : 'N/A'}}</span>
                                         </li>
 
+                                        <li>
+                                            <p>Mechanic Code</p>
+                                            <span>{{getData.machanic_code ? getData.machanic_code : 'N/A'}}</span>
+                                        </li>
                                      
 
                                         <li>
@@ -576,6 +581,10 @@
                                 <div class="downlode-file">
                                     <a mat-button class="link" (click)="export()">Export Excel</a>
                                 </div>
+                            </div>
+
+                            <div class="master-btn pl15">
+                                <button  mat-raised-button color="primary" (click)="openDatepicker()">Date Filter</button>
                             </div>
                         </div>
                     </div>
