@@ -132,6 +132,7 @@ export class KarigarDetailComponent implements OnInit {
                 this.getKarigarDetails();
             }
         });
+        this.getKarigarDetails();
     }
 
 

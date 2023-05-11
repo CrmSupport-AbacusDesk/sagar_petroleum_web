@@ -329,6 +329,18 @@ export class KarigarAddComponent implements OnInit {
                 this.dialog.error( 'Email or Mobile No. exists');
                 return;
             }
+
+
+            if(this.karigarform.karigar_edit_id){
+
+                this.router.navigate(['karigar-detail/'+this.karigarform.id +'/1']);
+                // this.router.navigate(['karigar-detail/'+this.karigarform.id +'/' +'1']);
+                this.dialog.success('Karigar has been Successfully Updated');
+                return;
+            }
+
+
+
             this.router.navigate(['karigar-list/1']);
             this.dialog.success('Karigar has been successfully added');
         });
