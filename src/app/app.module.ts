@@ -133,6 +133,9 @@ import { MechanicChangeStatusComponent } from './mechanic-change-status/mechanic
 import { AssignCouponCodeComponent } from './assign-coupon-code/assign-coupon-code.component';
 import { LocationMasterComponent } from './location-master copy/location-master.component';
 import { LoactionCsvComponent } from './loaction-csv/loaction-csv.component';
+import { StateWiseCountComponent } from './state-wise-count/state-wise-count.component';
+import { ScanPointReqListComponent } from './scan-point-req-list/scan-point-req-list.component';
+import { ListAccodingDateFilterComponent } from './list-accoding-date-filter copy/list-accoding-date-filter.component';
 
 
 
@@ -205,6 +208,10 @@ const routes: Routes = [
   {path: 'user-list', component:SystemUserListComponent , canActivate: [AuthGuard] },
   {path: 'bonus-list', component:BonuslistComponent , canActivate: [AuthGuard] },
   {path: 'pdf', component:PdfUploadComponent , canActivate: [AuthGuard] },
+
+  {path:'statewisecount-list/:page',component:StateWiseCountComponent,canActivate:[AuthGuard]},
+  {path: 'scan-point-req-list', component:ScanPointReqListComponent , canActivate: [AuthGuard] },
+
   {path: 'reports', component:ReportsComponent , canActivate: [AuthGuard]},
   {path: 'survey-add', component: SurveyAddComponent , canActivate: [AuthGuard] },
   {path: 'survey-list', component: SurveyListComponent , canActivate: [AuthGuard] },
@@ -240,6 +247,7 @@ const routes: Routes = [
     GiftListComponent,
     GiftDetailComponent,
     ProductcategoryListComponent,
+    ListAccodingDateFilterComponent,
     ProductsListComponent,
     NewsComponent,
     VideoComponent,
@@ -325,10 +333,13 @@ const routes: Routes = [
     SurveyAddComponent,
     SurveyListComponent,
     SurveyDetailComponent,
+    ScanPointReqListComponent,
     SurveyEditModalComponent,
     CouponCodeMasterComponent,
     DealeruploadComponent,
     MechanicChangeStatusComponent,
+    StateWiseCountComponent,
+   
    
   
   ],
@@ -384,6 +395,7 @@ const routes: Routes = [
     CouponSummaryModleComponent,
     FeedbackReplyModleComponent,
     TermConditionImageComponent,
+    ListAccodingDateFilterComponent,
     ReedemCouponSummaryComponent,
     AssignCouponCodeComponent,
     CouponCodeModalComponent,

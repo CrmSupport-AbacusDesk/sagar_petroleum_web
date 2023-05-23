@@ -35,6 +35,13 @@
                     <!-- <li *ngIf="this.db.datauser.id==1 || this.db.datauser.reports==1"><a routerLink="/reports" routerLinkActive="active">Reports</a></li> -->
 
                     <li><a routerLink="/survey-list" routerLinkActive="active"  *ngIf="this.db.datauser.id==1 || this.db.datauser.survey==1">Survey</a></li>
+
+
+                    <!-- <li><a routerLink="/statewisecount-list/1" routerLinkActive="active">State Wise Count</a></li> -->
+                    <li><a routerLink="/scan-point-req-list" routerLinkActive="active">Scan Point Report</a></li>
+
+
+
                     <li *ngIf="this.db.datauser.id==1 || this.db.datauser.master==1"><a routerLink="/referral-master" routerLinkActive="active">Master</a></li>         
                 </ul>
             </div>

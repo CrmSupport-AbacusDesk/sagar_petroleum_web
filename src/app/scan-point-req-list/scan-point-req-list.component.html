@@ -1,0 +1,271 @@
+<div class="main-container">
+  <div class="loader" *ngIf="loading_list">
+    <div class="loding-logo">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+  <div class="fixed">
+    <div class="tab-header">
+      <div class="tabs-list gift-tab-list">
+
+        <!-- <div class="input-field" >
+                  <input type="text" placeholder="Search" [(ngModel)]="filter.search"  (keyup.enter)="current_page = 1;getStateWiseReport('')">
+                  <i class="material-icons">
+                      search
+                  </i>
+              </div> -->
+        <div class="master-btn pl15">
+          <button mat-raised-button color="primary" (click)="openDatepicker()">Date Filter</button>
+        </div>
+      </div>
+
+      <div class="refresh-btn">
+        <a mat-button matTooltip="Refresh" matTooltipPosition="below"
+          (click)="getStateWiseReport('refresh','');set_filter({})"><i class="material-icons">refresh</i></a>
+
+          <!-- <div class="master-btn">
+            <mat-form-field appearance="outline" class="cs-input w100">
+              <mat-label>Year</mat-label>
+              <mat-select  name="year" #year="ngModel" [(ngModel)]="filter.year" >
+                <mat-option  value="2022">2022</mat-option>
+                <mat-option  value="2023">2023</mat-option>
+                <mat-option  value="2024">2024</mat-option>
+                <mat-option  value="2025">2025</mat-option>
+  
+              </mat-select>
+            </mat-form-field>
+          </div> -->
+
+
+        
+
+          
+        <!-- <a  mat-raised-button   (click)="getStateWiseReport()">Go</a> -->
+
+      </div>
+
+      <!-- <div class="df">
+        <mat-form-field appearance="outline" class="cs-input w150">
+          <mat-label>Month</mat-label>
+          
+          <mat-select multiple name="month" #month="ngModel" [(ngModel)]="filter.month">
+            <mat-option  value="{{filter.year}}-1">January -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-2">February -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-3">March -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-4">April -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-5">May -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-6">June -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-7">July -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-8">August -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-9">September -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-10">October -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-11">November -{{filter.year}}</mat-option>
+            <mat-option  value="{{filter.year}}-12">December -{{filter.year}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+      <!-- <div class="tabs-list gift-tab-list">
+        <div class="master-btn pl15">
+          <button mat-raised-button color="primary" [disabled]="!filter.month" (click)="getStateWiseReport()">Go</button>
+        </div>
+      </div> -->
+
+      <div class="top-pagination">
+
+
+        <ul>
+          <li>
+            <p>Click Next OR Previous Page</p>
+          </li>
+
+          <!-- <li><button mat-button matTooltip="First Page" class="fisrt-btn" (click)='current()'>First</button></li> -->
+
+          <li><button mat-button class="left-btn" (click)='redirect_previous(state_wise_count.length)'><i
+                class="material-icons">keyboard_arrow_left</i></button></li>
+
+          <!-- <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page" (keyup.enter)="getStateWiseReport('')">
+          </li> -->
+
+          <li><button mat-button class="right-btn" (click)='redirect_next(state_wise_count.length)'><i
+                class="material-icons">keyboard_arrow_right</i></button></li>
+
+          <!-- <li><button mat-button matTooltip="Last Page" class="last-btn" (click)='last()'>Last</button></li> -->
+
+        </ul>
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+<div class="css-table hr-scroll-table">
+  <!-- <table>
+    <tr>
+      <td class="w120">
+        <th class="w120 text-center">State</th>
+      </td>
+    </tr>
+  </table> -->
+  <div class="sticky-header" style="width: -webkit-fill-available;">
+    <div class="header">
+      <table>
+        <tr >
+           
+           <th class="w50 text-center">{{header_list[0]}}</th>
+           <th class="w100 text-center">{{header_list[1]}}
+
+            <div class="search-form">
+              <input type="text" placeholder="Name" [(ngModel)]="filter.full_name"  (keyup.enter)="current_page = 1;getStateWiseReport(any,length)">
+              <i class="material-icons">search</i>
+          </div>
+
+           </th>
+           <th class="w100 text-center">{{header_list[2]}}
+
+            <div class="search-form">
+              <input type="text" placeholder="Mobile" [(ngModel)]="filter.mobile_no"  (keyup.enter)="current_page = 1;getStateWiseReport(any,length)">
+              <i class="material-icons">search</i>
+          </div>
+
+           </th>
+           <th class="w100 text-center">{{header_list[3]}}
+
+    
+              <div class="search-form">
+                  <input type="text" placeholder="State" [(ngModel)]="filter.state"  (keyup.enter)="current_page = 1;getStateWiseReport(any,length)">
+                  <i class="material-icons">search</i>
+              </div>
+    
+
+
+           </th>
+           <th class="w100 text-center">{{header_list[4]}}
+
+            <div class="search-form">
+              <input type="text" placeholder="District" [(ngModel)]="filter.district"  (keyup.enter)="current_page = 1;getStateWiseReport(any,length)">
+              <i class="material-icons">search</i>
+          </div>
+
+           </th>
+           <th class="w100 text-center" *ngIf="header_list[5]">{{header_list[5]}}
+
+            <div class="search-form">
+              <input type="text" placeholder="City" [(ngModel)]="filter.city"  (keyup.enter)="current_page = 1;getStateWiseReport(any,length)">
+              <i class="material-icons">search</i>
+          </div>
+
+           </th>
+           <th class="w100 text-center" *ngIf="header_list[6]">{{header_list[6]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[7]">{{header_list[7]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[8]">{{header_list[8]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[9]">{{header_list[9]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[10]">{{header_list[10]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[11]">{{header_list[11]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[12]">{{header_list[12]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[13]">{{header_list[13]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[14]">{{header_list[14]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[15]">{{header_list[15]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[16]">{{header_list[16]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[17]">{{header_list[17]}}</th>
+           <th class="w100 text-center" *ngIf="header_list[18]">{{header_list[18]}}</th>
+
+
+
+
+
+          <!-- <th class="w30">SNo.</th>
+          <th class="w120 text-center" >{{State}}</th>
+          <th class="w100 text-center">District</th>
+          <th class="w90 text-center">Mobile Number</th>
+          <th class="w150 text-center">Full Name </th> -->
+<!-- <ng-container *ngFor="let val of state_wise_count; let i = index">
+
+  
+  <th class="w120 text-center" *ngFor="let val2 of val.month_wise_coupon_data;">
+    <ng-container >
+      {{val2.month}}/{{val2.year}}
+    </ng-container>
+   </th>
+
+   <th class="w120 text-center" *ngFor="let val3 of val.year_wise_coupon_data;">
+    <ng-container >
+     {{val3.year}}
+    </ng-container>
+   </th>
+</ng-container> -->
+
+          
+
+
+        </tr>
+      </table>
+    </div>
+
+    
+  </div>
+    <div class="table-container" style="width: -webkit-fill-available;" *ngIf="state_wise_count.length">
+      <div class="table-body" style="width: fit-content;">
+        <table>
+          <tr *ngFor="let val of state_wise_count; let i = index">
+            <!-- <td class="w30 text-center" style="border-right: 0px !important;"><mat-checkbox name="checked" [(ngModel)]="val.checked" (change)="select_item($event,i)"></mat-checkbox></td> -->
+            <!-- <td class="w100">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td> -->
+            <td class="w50">{{ i + length + 1}}</td>
+
+            
+            <td class="w100 text-center">{{val.full_name}}</td>
+            <td class="w100 text-center">{{val.mobile_no}}</td>
+            <td class="w100 text-center">{{val.state}}</td>
+            <td class="w100 text-center">{{val.district}}</td>
+            <td class="w100 text-center">{{val.city}}</td>
+            <td class="w100 text-center" *ngFor="let val2 of val.month_wise_coupon_data;">
+            <ng-container >
+
+                {{val2.total_coupon}}/{{val2.karigar_coupon_value}}
+          </ng-container> 
+
+            </td>
+
+            <td class="w100 text-center" *ngFor="let val3 of val.year_wise_coupon_data;">
+              <ng-container >
+                {{val3.total_coupon_year}}/{{val3.karigar_coupon_value_year}}
+  
+            </ng-container> 
+  
+              </td>
+
+            
+          </tr>
+        </table>
+      </div>
+    </div>
+</div>
+  
+
+  <div class="container-outer">
+    <div class="container">
+      <div class="row">
+      </div>
+    </div>
+    <div class="date-not" *ngIf="!loading_list && !state_wise_count.length">
+      <div class="no-img">
+        <img src="assets/result-not-found.png">
+      </div>
+    </div>
+    <div class="date-not" *ngIf="!state_wise_count.length">
+      <div class="no-img">
+        <img src="assets/not-available.jpg">
+      </div>
+    </div>
+    <div class="excel-btn" (click)="exportStateWise()" *ngIf="state_wise_count.length" >
+      <div class="image-area">
+        <a>
+          <img src="assets/excel.svg">
+        </a>
+      </div>
+    </div>
+  </div>
+  
+</div>
