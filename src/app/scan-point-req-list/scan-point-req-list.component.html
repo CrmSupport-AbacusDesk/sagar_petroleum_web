@@ -117,7 +117,7 @@
            <th class="w50 text-center">{{header_list[0]}}</th>
            <th class="w100 text-center">{{header_list[1]}}
 
-            <div class="search-form">
+            <div class="search-form scn_pd" >
               <input type="text" placeholder="Name" [(ngModel)]="filter.full_name"  (keyup.enter)="current_page = 1;getStateWiseReport(any,length)">
               <i class="material-icons">search</i>
           </div>
@@ -125,7 +125,7 @@
            </th>
            <th class="w100 text-center">{{header_list[2]}}
 
-            <div class="search-form">
+            <div class="search-form scn_pd">
               <input type="text" placeholder="Mobile" [(ngModel)]="filter.mobile_no"  (keyup.enter)="current_page = 1;getStateWiseReport(any,length)">
               <i class="material-icons">search</i>
           </div>
@@ -134,7 +134,7 @@
            <th class="w100 text-center">{{header_list[3]}}
 
     
-              <div class="search-form">
+              <div class="search-form scn_pd">
                   <input type="text" placeholder="State" [(ngModel)]="filter.state"  (keyup.enter)="current_page = 1;getStateWiseReport(any,length)">
                   <i class="material-icons">search</i>
               </div>
@@ -144,7 +144,7 @@
            </th>
            <th class="w100 text-center">{{header_list[4]}}
 
-            <div class="search-form">
+            <div class="search-form scn_pd">
               <input type="text" placeholder="District" [(ngModel)]="filter.district"  (keyup.enter)="current_page = 1;getStateWiseReport(any,length)">
               <i class="material-icons">search</i>
           </div>
@@ -152,7 +152,7 @@
            </th>
            <th class="w100 text-center" *ngIf="header_list[5]">{{header_list[5]}}
 
-            <div class="search-form">
+            <div class="search-form scn_pd">
               <input type="text" placeholder="City" [(ngModel)]="filter.city"  (keyup.enter)="current_page = 1;getStateWiseReport(any,length)">
               <i class="material-icons">search</i>
           </div>
